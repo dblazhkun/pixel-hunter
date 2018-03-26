@@ -1,7 +1,7 @@
 # Личный проект «Пиксель хантер» [![Build status][travis-image]][travis-url]
 
 * Студент: [Daniel Chikimoni](https://up.htmlacademy.ru/ecmascript/4/user/183012).
-* Наставник: `Неизвестно`.
+* Наставник: [Иван Стрелков](https://htmlacademy.ru/profile/id427611).
 
 ---
 

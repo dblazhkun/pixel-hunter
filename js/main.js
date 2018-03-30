@@ -1,4 +1,4 @@
-const templates = Array.prototype.slice.call(document.querySelectorAll(`template`));
+const templates = [...document.querySelectorAll(`template`)];
 const centralScreen = document.querySelector(`main.central`);
 
 const changeScreen = (screen, template) => {

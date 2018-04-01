@@ -1,6 +1,9 @@
-import getElementFromTemplate from './get-element-from-template';
+import getElementFromTemplate from '../utils/get-element-from-template';
+import renderScreen from '../utils/render-screen';
+import nextScreen from './game2';
+import intro from './intro';
 
-const game1 = getElementFromTemplate(String.raw`<header class="header">
+const template = String.raw`<header class="header">
 <div class="header__back">
   <button class="back">
     <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -64,6 +67,11 @@ const game1 = getElementFromTemplate(String.raw`<header class="header">
   <a href="https://www.facebook.com/htmlacademy" class="social-link  social-link--fb">Фэйсбук</a>
   <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
 </div>
-</footer>`);
+</footer>`;
+
+const game1 = getElementFromTemplate(template);
+const linkToStartScreen = game1.querySelector(`.back`);
+
+linkToStartScreen.addEventListener(`click`, () => renderScreen(intro));
 
 export default game1;

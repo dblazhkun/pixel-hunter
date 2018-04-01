@@ -1,6 +1,6 @@
 import getElementFromTemplate from '../utils/get-element-from-template';
 import renderScreen from '../utils/render-screen';
-
+import nextScreen from './rules';
 
 const template = String.raw`<div class="greeting central--blur">
 <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
@@ -28,6 +28,6 @@ const template = String.raw`<div class="greeting central--blur">
 
 const greeting = getElementFromTemplate(template);
 
-greeting.querySelector(`.greeting__continue`).addEventListener(`click`, () => renderScreen());
+greeting.querySelector(`.greeting__continue`).addEventListener(`click`, () => renderScreen(nextScreen));
 
 export default greeting;

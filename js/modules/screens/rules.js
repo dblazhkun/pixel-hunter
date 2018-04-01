@@ -1,6 +1,9 @@
-import getElementFromTemplate from './get-element-from-template';
+import getElementFromTemplate from '../utils/get-element-from-template';
+import renderScreen from '../utils/render-screen';
+import nextScreen from './game1';
+import intro from './intro';
 
-const rules = getElementFromTemplate(String.raw`<header class="header">
+const template = String.raw`<header class="header">
 <div class="header__back">
   <button class="back">
     <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -33,6 +36,22 @@ const rules = getElementFromTemplate(String.raw`<header class="header">
   <a href="https://www.facebook.com/htmlacademy" class="social-link  social-link--fb">Фэйсбук</a>
   <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
 </div>
-</footer>`);
+</footer>`;
+
+const rules = getElementFromTemplate(template);
+const rulesInput = rules.querySelector(`.rules__input`);
+const linkToNextScreen = rules.querySelector(`.rules__button`);
+const linkToStartScreen = rules.querySelector(`.back`);
+
+rulesInput.addEventListener(`input`, () => {
+  linkToNextScreen.removeAttribute(`disabled`);
+  if (rulesInput.value.length < 1) {
+    linkToNextScreen.setAttribute(`disabled`, `disabled`);
+  }
+});
+
+linkToNextScreen.addEventListener(`click`, () => renderScreen(nextScreen));
+linkToStartScreen.addEventListener(`click`, () => renderScreen(intro));
 
 export default rules;
+

@@ -71,7 +71,20 @@ const template = String.raw`<header class="header">
 
 const game1 = getElementFromTemplate(template);
 const linkToStartScreen = game1.querySelector(`.back`);
+const elementsOfFirstQuestion = game1.querySelectorAll(`[name="question1"]`);
+const elementsOfSecondQuestion = game1.querySelectorAll(`[name="question2"]`);
+const questions = [elementsOfFirstQuestion, elementsOfSecondQuestion];
+const questionsAnswered = [false, false];
 
 linkToStartScreen.addEventListener(`click`, () => renderScreen(intro));
+
+const createHandler = (index) => () => {
+  questionsAnswered[index] = true;
+  if (questionsAnswered[0] === true && questionsAnswered[1] === true) {
+    renderScreen(nextScreen);
+  }
+};
+
+questions.forEach((question, i) => question.forEach((variant) => variant.addEventListener(`click`, createHandler(i))));
 
 export default game1;

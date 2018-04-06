@@ -35,6 +35,15 @@ const countAnswer = (prevState, answerStatus, elapsedTime) => {
   if (answerStatus === false || elapsedTime === 0) {
     newState.levels -= 1;
     newState.lives -= 1;
+    if (newState.levels === 0 && newState.lives >= 0) {
+      newState.isGameEnd = true;
+      newState.isGameWin = true;
+      newState.points += prevState.lives * 50;
+    }
+    if (newState.lives < 0) {
+      newState.isGameEnd = true;
+      newState.isGameWin = false;
+    }
   }
 
   if (answerStatus === true) {
@@ -46,13 +55,18 @@ const countAnswer = (prevState, answerStatus, elapsedTime) => {
     if (elapsedTime > 20) {
       newState.points -= 50;
     }
+    if (newState.levels === 0) {
+      newState.isGameEnd = true;
+      newState.isGameWin = true;
+      newState.points += prevState.lives * 50;
+    }
   }
 
   return newState;
 };
 
-describe(`Count fail answer`, () => {
-  it(`should correct count wrong answer`, () => {
+describe(`Counting failed answer`, () => {
+  it(`should correctly count wrong answer`, () => {
     const previousState = {
       points: 0,
       levels: 10,
@@ -67,9 +81,9 @@ describe(`Count fail answer`, () => {
       isGameEnd: false,
       isGameWin: false
     };
-    assert.deepEqual(expectedState, countAnswer(previousState, false, 10));
+    assert.deepEqual(countAnswer(previousState, false, 10), expectedState);
   });
-  it(`should correct count wrong answer`, () => {
+  it(`should correctly count wrong answer`, () => {
     const previousState = {
       points: 50,
       levels: 9,
@@ -84,9 +98,9 @@ describe(`Count fail answer`, () => {
       isGameEnd: false,
       isGameWin: false
     };
-    assert.deepEqual(expectedState, countAnswer(previousState, false, 10));
+    assert.deepEqual(countAnswer(previousState, false, 10), expectedState);
   });
-  it(`should correct count expired time`, () => {
+  it(`should correctly count expired time`, () => {
     const previousState = {
       points: 50,
       levels: 9,
@@ -101,12 +115,12 @@ describe(`Count fail answer`, () => {
       isGameEnd: false,
       isGameWin: false
     };
-    assert.deepEqual(expectedState, countAnswer(previousState, false, 0));
+    assert.deepEqual(countAnswer(previousState, null, 0), expectedState);
   });
 });
 
-describe(`Count correct answer`, () => {
-  it(`should correct count right and middle speed answer`, () => {
+describe(`Counting correct answer`, () => {
+  it(`should correctly count the right answer with middle speed`, () => {
     const previousState = {
       points: 0,
       levels: 10,
@@ -121,9 +135,9 @@ describe(`Count correct answer`, () => {
       isGameEnd: false,
       isGameWin: false
     };
-    assert.deepEqual(expectedState, countAnswer(previousState, true, 15));
+    assert.deepEqual(countAnswer(previousState, true, 15), expectedState);
   });
-  it(`should correct count right and slow answer`, () => {
+  it(`should correctly count the right answer with slow speed`, () => {
     const previousState = {
       points: 0,
       levels: 10,
@@ -138,9 +152,9 @@ describe(`Count correct answer`, () => {
       isGameEnd: false,
       isGameWin: false
     };
-    assert.deepEqual(expectedState, countAnswer(previousState, true, 25));
+    assert.deepEqual(countAnswer(previousState, true, 25), expectedState);
   });
-  it(`should correct count right and fast answer`, () => {
+  it(`should correctly count the right answer with fast speed`, () => {
     const previousState = {
       points: 0,
       levels: 10,
@@ -155,7 +169,114 @@ describe(`Count correct answer`, () => {
       isGameEnd: false,
       isGameWin: false
     };
-    assert.deepEqual(expectedState, countAnswer(previousState, true, 5));
+    assert.deepEqual(countAnswer(previousState, true, 5), expectedState);
   });
 });
 
+describe(`Counting correct end of the game`, () => {
+  it(`should correctly count the right answer with middle speed, when the level was the last`, () => {
+    const previousState = {
+      points: 900,
+      levels: 1,
+      lives: 3,
+      isGameEnd: false,
+      isGameWin: false
+    };
+    const expectedState = {
+      points: 1150,
+      levels: 0,
+      lives: 3,
+      isGameEnd: true,
+      isGameWin: true
+    };
+    assert.deepEqual(countAnswer(previousState, true, 15), expectedState);
+  });
+  it(`should correctly count the right answer with fast speed, when the level was the last`, () => {
+    const previousState = {
+      points: 900,
+      levels: 1,
+      lives: 3,
+      isGameEnd: false,
+      isGameWin: false
+    };
+    const expectedState = {
+      points: 1200,
+      levels: 0,
+      lives: 3,
+      isGameEnd: true,
+      isGameWin: true
+    };
+    assert.deepEqual(countAnswer(previousState, true, 5), expectedState);
+  });
+  it(`should correctly count the right answer with slow speed, when the level was the last`, () => {
+    const previousState = {
+      points: 900,
+      levels: 1,
+      lives: 3,
+      isGameEnd: false,
+      isGameWin: false
+    };
+    const expectedState = {
+      points: 1100,
+      levels: 0,
+      lives: 3,
+      isGameEnd: true,
+      isGameWin: true
+    };
+    assert.deepEqual(countAnswer(previousState, true, 25), expectedState);
+  });
+  it(`should correctly count the wrong answer, when the level was the last`, () => {
+    const previousState = {
+      points: 700,
+      levels: 1,
+      lives: 1,
+      isGameEnd: false,
+      isGameWin: false
+    };
+    const expectedState = {
+      points: 700,
+      levels: 0,
+      lives: 0,
+      isGameEnd: true,
+      isGameWin: true
+    };
+    assert.deepEqual(countAnswer(previousState, false, 25), expectedState);
+  });
+});
+
+describe(`Counting correct lose of the game`, () => {
+  it(`should correctly count the wrong answer, when the lives was over`, () => {
+    const previousState = {
+      points: 600,
+      levels: 1,
+      lives: 0,
+      isGameEnd: false,
+      isGameWin: false
+    };
+    const expectedState = {
+      points: 600,
+      levels: 0,
+      lives: -1,
+      isGameEnd: true,
+      isGameWin: false
+    };
+    assert.deepEqual(countAnswer(previousState, false, 15), expectedState);
+  });
+  it(`should correctly count expired time, when the lives was over`, () => {
+    const previousState = {
+      points: 600,
+      levels: 1,
+      lives: 0,
+      isGameEnd: false,
+      isGameWin: false
+    };
+    const expectedState = {
+      points: 600,
+      levels: 0,
+      lives: -1,
+      isGameEnd: true,
+      isGameWin: false
+    };
+    assert.deepEqual(countAnswer(previousState, null, 0), expectedState);
+  });
+});

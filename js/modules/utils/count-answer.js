@@ -1,6 +1,6 @@
 const countAnswer = (prevState, answerStatus, elapsedTime) => {
   const newState = prevState;
-  if (answerStatus === false || elapsedTime === 0) {
+  if (answerStatus === false) {
     newState.levels -= 1;
     newState.lives -= 1;
     if (newState.levels === 0 && newState.lives >= 0) {

@@ -1,13 +1,13 @@
-import getElementFromTemplate from '../utils/get-element-from-template';
-import renderScreen from '../utils/render-screen';
+import {createElement} from '../utils/create-element';
+import changeView from '../utils/changeView';
 import nextScreen from './stats';
 import intro from './intro';
 
-import {footerData, gameState} from '../../data/data';
-import getHeader from './header';
-import getFooter from './footer';
+import {gameState} from '../../data/data';
+import renderHeader from './header';
+import renderFooter from './footer';
 
-const template = String.raw`${getHeader(gameState)}
+const template = String.raw`${renderHeader(gameState)}
 <div class="game">
 <p class="game__task">Найдите рисунок среди изображений</p>
 <form class="game__content  game__content--triple">
@@ -36,14 +36,14 @@ const template = String.raw`${getHeader(gameState)}
   </ul>
 </div>
 </div>
-${getFooter(footerData.creationDate)}`;
+${renderFooter()}`;
 
-const game3 = getElementFromTemplate(template);
+const game3 = createElement(template);
 const linkToStartScreen = game3.querySelector(`.back`);
 const elementsOfQuestion = game3.querySelectorAll(`.game__option`);
 
-linkToStartScreen.addEventListener(`click`, () => renderScreen(intro));
+linkToStartScreen.addEventListener(`click`, () => changeView(intro));
 
-elementsOfQuestion.forEach((element) => element.addEventListener(`click`, () => renderScreen(nextScreen)));
+elementsOfQuestion.forEach((element) => element.addEventListener(`click`, () => changeView(nextScreen)));
 
 export default game3;

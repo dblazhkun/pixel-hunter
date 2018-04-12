@@ -1,4 +1,4 @@
-import renderScreen from './modules/utils/render-screen';
+import changeView from './modules/utils/change-view';
 import intro from './modules/game/intro';
 
-renderScreen(intro);
+changeView(intro);

@@ -1,9 +1,8 @@
-import getElementFromTemplate from '../utils/get-element-from-template';
-import renderScreen from '../utils/render-screen';
-import nextScreen from './rules';
+import {createElement} from '../utils/create-element';
+import changeView from '../utils/change-view';
+import {rules} from './rules';
 
-import {footerData} from '../../data/data';
-import getFooter from './footer';
+import renderFooter from './footer';
 
 
 const template = String.raw`<div class="greeting central--blur">
@@ -18,11 +17,11 @@ const template = String.raw`<div class="greeting central--blur">
     Помни, главное — смотреть очень внимательно.</p>
 </div>
 <div class="greeting__continue"><span><img src="img/arrow_right.svg" width="64" height="64" alt="Next"></span></div>
-</div>
-${getFooter(footerData.creationDate)}`;
+</div>`;
 
-const greeting = getElementFromTemplate(template);
+const greeting = createElement(template);
+greeting.appendChild(renderFooter());
 
-greeting.querySelector(`.greeting__continue`).addEventListener(`click`, () => renderScreen(nextScreen));
+greeting.querySelector(`.greeting__continue`).addEventListener(`click`, () => changeView(rules));
 
 export default greeting;

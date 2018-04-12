@@ -1,13 +1,13 @@
-import getElementFromTemplate from '../utils/get-element-from-template';
-import renderScreen from '../utils/render-screen';
+import {createElement} from '../utils/create-element';
+import changeView from '../utils/changeView';
 import nextScreen from './game2';
 import intro from './intro';
 
-import {footerData, gameState} from '../../data/data';
-import getHeader from './header';
-import getFooter from './footer';
+import {gameState} from '../../data/data';
+import renderHeader from './header';
+import renderFooter from './footer';
 
-const template = String.raw`${getHeader(gameState)}
+const template = String.raw`${renderHeader(gameState)}
 <div class="game">
 <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
 <form class="game__content">
@@ -49,21 +49,21 @@ const template = String.raw`${getHeader(gameState)}
   </ul>
 </div>
 </div>
-${getFooter(footerData.creationDate)}`;
+${renderFooter()}`;
 
-const game1 = getElementFromTemplate(template);
+const game1 = createElement(template);
 const linkToStartScreen = game1.querySelector(`.back`);
 const elementsOfFirstQuestion = game1.querySelectorAll(`[name="question1"]`);
 const elementsOfSecondQuestion = game1.querySelectorAll(`[name="question2"]`);
 const questions = [elementsOfFirstQuestion, elementsOfSecondQuestion];
 const questionsAnswered = [false, false];
 
-linkToStartScreen.addEventListener(`click`, () => renderScreen(intro));
+linkToStartScreen.addEventListener(`click`, () => changeView(intro));
 
 const createHandler = (index) => () => {
   questionsAnswered[index] = true;
   if (questionsAnswered[0] === true && questionsAnswered[1] === true) {
-    renderScreen(nextScreen);
+    changeView(nextScreen);
   }
 };
 

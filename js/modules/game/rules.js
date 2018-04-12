@@ -1,13 +1,10 @@
-import getElementFromTemplate from '../utils/get-element-from-template';
-import renderScreen from '../utils/render-screen';
-import nextScreen from './game1';
-import intro from './intro';
+import {createElement} from '../utils/create-element';
+import changeView from '../utils/change-view';
+import game from './game';
+import renderHeader from './header';
+import renderFooter from './footer';
 
-import {footerData} from '../../data/data';
-import getHeader from './header';
-import getFooter from './footer';
-
-const template = String.raw`${getHeader()}
+const template = String.raw`${renderHeader()}
 <div class="rules">
 <h1 class="rules__title">Правила</h1>
 <p class="rules__description">Угадай 10 раз для каждого изображения фото <img
@@ -23,13 +20,13 @@ const template = String.raw`${getHeader()}
   <input class="rules__input" type="text" placeholder="Ваше Имя">
   <button class="rules__button  continue" type="submit" disabled>Go!</button>
 </form>
-</div>
-${getFooter(footerData.creationDate)}`;
+</div>`;
 
-const rules = getElementFromTemplate(template);
+export const rules = createElement(template);
+rules.appendChild(renderFooter());
+
 const rulesInput = rules.querySelector(`.rules__input`);
 const linkToNextScreen = rules.querySelector(`.rules__button`);
-const linkToStartScreen = rules.querySelector(`.back`);
 
 rulesInput.addEventListener(`input`, () => {
   linkToNextScreen.removeAttribute(`disabled`);
@@ -38,8 +35,14 @@ rulesInput.addEventListener(`input`, () => {
   }
 });
 
-linkToNextScreen.addEventListener(`click`, () => renderScreen(nextScreen));
-linkToStartScreen.addEventListener(`click`, () => renderScreen(intro));
+export let PLAYER_NAME = null;
 
-export default rules;
+linkToNextScreen.addEventListener(`click`, (evt) => {
+  evt.preventDefault();
+  PLAYER_NAME = String.raw`${rulesInput.value}`;
+
+  console.log(PLAYER_NAME);
+  changeView(game);
+});
+
 

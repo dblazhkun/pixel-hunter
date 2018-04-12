@@ -1,7 +1,7 @@
-const renderScreen = (template) => {
+const changeView = (template) => {
   const container = document.querySelector(`main.central`);
   container.innerHTML = ``;
   container.appendChild(template);
 };
 
-export default renderScreen;
+export default changeView;

@@ -2,7 +2,7 @@ import {createElement} from '../utils/create-element';
 import changeView from '../utils/change-view';
 import intro from './intro';
 
-export default (state) => {
+export default (gameState, time = null) => {
   let template = `<header class="header">
   <div class="header__back">
     <button class="back">
@@ -12,7 +12,7 @@ export default (state) => {
   </div>
   </header>`;
 
-  if (state) {
+  if (gameState) {
     const drawHeart = (full) => {
       return `<img src="img/heart__${full ? `full` : `empty`}.svg" class="game__heart" alt="Life" width="32" height="32">`;
     };
@@ -23,11 +23,11 @@ export default (state) => {
         <img src="img/logo_small.svg" width="101" height="44">
       </button>
     </div>
-    <h1 class="game__timer">${state.time}</h1>
+    <h1 class="game__timer">${time}</h1>
     <div class="game__lives">
-      ${drawHeart(state.lives > 2)}
-      ${drawHeart(state.lives > 1)}
-      ${drawHeart(state.lives > 0)}
+      ${drawHeart(gameState.lives > 2)}
+      ${drawHeart(gameState.lives > 1)}
+      ${drawHeart(gameState.lives > 0)}
     </div>
     </header>`;
   }

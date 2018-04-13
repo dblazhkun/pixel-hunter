@@ -15,6 +15,5 @@ intro.appendChild(createElement(template));
 intro.appendChild(renderFooter());
 
 intro.querySelector(`.intro__asterisk`).addEventListener(`click`, () => changeView(greeting));
-console.log(intro)
 
 export default intro;

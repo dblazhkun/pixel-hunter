@@ -1,14 +1,14 @@
 export const INITIAL_GAME = {
+  points: 0,
+  levels: 10,
   lives: 3,
-  time: 0,
-  timeLimit: 30,
-  currentLevel: 0,
-  totalLevels: 10,
-  playerName: null,
-  answers: [`unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`]
+  isGameEnd: false,
+  isGameWin: false
 };
 
-export const LEVELS = [
+export const ANSWERS = [`unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`];
+
+export const GAMES = [
   {
     gameType: 1,
     task: `Угадайте для каждого изображения фото или рисунок?`,

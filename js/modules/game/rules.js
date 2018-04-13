@@ -1,11 +1,11 @@
 import {createElement} from '../utils/create-element';
 import changeView from '../utils/change-view';
-import game from './game';
 import renderHeader from './header';
 import renderFooter from './footer';
+import game from './game';
+import intro from './intro';
 
-const template = String.raw`${renderHeader()}
-<div class="rules">
+const template = `<div class="rules">
 <h1 class="rules__title">Правила</h1>
 <p class="rules__description">Угадай 10 раз для каждого изображения фото <img
   src="img/photo_icon.png" width="16" height="16"> или рисунок <img
@@ -22,11 +22,14 @@ const template = String.raw`${renderHeader()}
 </form>
 </div>`;
 
-export const rules = createElement(template);
+export const rules = createElement();
+rules.appendChild(renderHeader());
+rules.appendChild(createElement(template));
 rules.appendChild(renderFooter());
 
 const rulesInput = rules.querySelector(`.rules__input`);
 const linkToNextScreen = rules.querySelector(`.rules__button`);
+const linkToStartScreen = rules.querySelector(`.back`);
 
 rulesInput.addEventListener(`input`, () => {
   linkToNextScreen.removeAttribute(`disabled`);
@@ -41,8 +44,9 @@ linkToNextScreen.addEventListener(`click`, (evt) => {
   evt.preventDefault();
   PLAYER_NAME = String.raw`${rulesInput.value}`;
 
-  console.log(PLAYER_NAME);
   changeView(game);
 });
+
+linkToStartScreen.addEventListener(`click`, () => changeView(intro));
 
 

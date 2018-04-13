@@ -10,10 +10,11 @@ const template = String.raw`<div id="main" class="central__content">
 </div>
 </div>`;
 
-const intro = createElement(template);
+const intro = createElement();
+intro.appendChild(createElement(template));
 intro.appendChild(renderFooter());
 
 intro.querySelector(`.intro__asterisk`).addEventListener(`click`, () => changeView(greeting));
+console.log(intro)
 
 export default intro;
-

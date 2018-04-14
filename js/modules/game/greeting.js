@@ -19,10 +19,14 @@ const template = String.raw`<div class="greeting central--blur">
 <div class="greeting__continue"><span><img src="img/arrow_right.svg" width="64" height="64" alt="Next"></span></div>
 </div>`;
 
-const greeting = createElement();
-greeting.appendChild(createElement(template));
-greeting.appendChild(renderFooter());
+const renderGreeting = (renderNextScreen) => {
+  const greeting = createElement();
+  greeting.appendChild(createElement(template));
+  greeting.appendChild(renderFooter());
 
-greeting.querySelector(`.greeting__continue`).addEventListener(`click`, () => changeView(rules));
+  greeting.querySelector(`.greeting__continue`).addEventListener(`click`, () => changeView(renderNextScreen(rules)));
 
-export default greeting;
+  return greeting;
+};
+
+export default renderGreeting;

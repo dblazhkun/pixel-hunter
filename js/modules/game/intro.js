@@ -1,6 +1,5 @@
 import {createElement} from '../utils/create-element';
 import changeView from '../utils/change-view';
-import greeting from './greeting';
 import renderFooter from './footer';
 
 const template = String.raw`<div id="main" class="central__content">
@@ -10,10 +9,14 @@ const template = String.raw`<div id="main" class="central__content">
 </div>
 </div>`;
 
-const intro = createElement();
-intro.appendChild(createElement(template));
-intro.appendChild(renderFooter());
+const renderIntro = (renderNextScreen) => {
+  const intro = createElement();
+  intro.appendChild(createElement(template));
+  intro.appendChild(renderFooter());
 
-intro.querySelector(`.intro__asterisk`).addEventListener(`click`, () => changeView(greeting));
+  intro.querySelector(`.intro__asterisk`).addEventListener(`click`, () => changeView(renderNextScreen()));
 
-export default intro;
+  return intro;
+};
+
+export default renderIntro;

@@ -1,4 +1,5 @@
 import changeView from './modules/utils/change-view';
-import intro from './modules/game/intro';
+import renderIntro from './modules/game/intro';
+import renderGreeting from './modules/game/greeting';
 
-changeView(intro);
+changeView(renderIntro(renderGreeting));

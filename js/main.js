@@ -2,8 +2,8 @@ import changeView from './modules/utils/change-view';
 import renderIntro from './modules/game/intro';
 import renderGreeting from './modules/game/greeting';
 import renderRules from './modules/game/rules';
-
-// changeView(renderIntro(renderGreeting));
+import renderLevel from './modules/game/level';
+import {INITIAL_GAME, ANSWERS, GAMES} from './data/data';
 
 const App = {
   start() {
@@ -26,14 +26,33 @@ const App = {
 
   showRules() {
     const done = () => {
-      console.log(`done`);
+      this.startGame();
     };
     const back = () => {
-      console.log(this.showIntro);
       this.showIntro();
     };
     const element = renderRules(done, back);
     changeView(element);
+  },
+
+  startGame() {
+    this.state = INITIAL_GAME;
+    this.games = GAMES;
+    this.answers = ANSWERS;
+    this.showLevel();
+  },
+
+  showLevel() {
+    const element = renderLevel(this.state, this.games[INITIAL_GAME.levels - this.state.levels], this.answers);
+    changeView(element);
+  },
+
+  showWin() {
+
+  },
+
+  showLose() {
+
   }
 };
 

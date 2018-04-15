@@ -1,7 +1,4 @@
 import {createElement} from '../utils/create-element';
-import changeView from '../utils/change-view';
-import {rules} from './rules';
-
 import renderFooter from './footer';
 
 
@@ -19,12 +16,12 @@ const template = String.raw`<div class="greeting central--blur">
 <div class="greeting__continue"><span><img src="img/arrow_right.svg" width="64" height="64" alt="Next"></span></div>
 </div>`;
 
-const renderGreeting = (renderNextScreen) => {
+const renderGreeting = (done) => {
   const greeting = createElement();
   greeting.appendChild(createElement(template));
   greeting.appendChild(renderFooter());
 
-  greeting.querySelector(`.greeting__continue`).addEventListener(`click`, () => changeView(renderNextScreen(rules)));
+  greeting.querySelector(`.greeting__continue`).addEventListener(`click`, () => done());
 
   return greeting;
 };

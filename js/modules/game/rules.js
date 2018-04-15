@@ -22,31 +22,30 @@ const template = `<div class="rules">
 </form>
 </div>`;
 
-export const rules = createElement();
-rules.appendChild(renderHeader());
-rules.appendChild(createElement(template));
-rules.appendChild(renderFooter());
 
-const rulesInput = rules.querySelector(`.rules__input`);
-const linkToNextScreen = rules.querySelector(`.rules__button`);
-const linkToStartScreen = rules.querySelector(`.back`);
+const renderRules = (done, back) => {
+  const rules = createElement();
+  rules.appendChild(renderHeader());
+  rules.appendChild(createElement(template));
+  rules.appendChild(renderFooter());
 
-rulesInput.addEventListener(`input`, () => {
-  linkToNextScreen.removeAttribute(`disabled`);
-  if (rulesInput.value.length < 1) {
-    linkToNextScreen.setAttribute(`disabled`, `disabled`);
-  }
-});
+  const rulesInput = rules.querySelector(`.rules__input`);
+  const linkToNextScreen = rules.querySelector(`.rules__button`);
+  const linkToStartScreen = rules.querySelector(`.back`);
+  let playerName = ``;
 
-export let PLAYER_NAME = null;
+  rulesInput.addEventListener(`input`, () => {
+    linkToNextScreen.removeAttribute(`disabled`);
+    playerName = String.raw`${rulesInput.value}`;
+    if (rulesInput.value.length < 1) {
+      linkToNextScreen.setAttribute(`disabled`, `disabled`);
+    }
+  });
 
-linkToNextScreen.addEventListener(`click`, (evt) => {
-  evt.preventDefault();
-  PLAYER_NAME = String.raw`${rulesInput.value}`;
+  linkToNextScreen.addEventListener(`click`, () => done(playerName));
+  linkToStartScreen.addEventListener(`click`, () => back());
 
-  changeView(game);
-});
+  return rules;
+};
 
-linkToStartScreen.addEventListener(`click`, () => changeView(intro));
-
-
+export default renderRules;

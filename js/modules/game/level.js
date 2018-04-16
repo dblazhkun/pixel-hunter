@@ -16,6 +16,30 @@ const renderLevel = (state, level, answers, done, fail, lose, back) => {
   element.appendChild(renderStats(answers));
   element.appendChild(renderFooter());
 
+  if (level.gameType === 1) {
+    const linkToStartScreen = element.querySelector(`.back`);
+    const elementsOfFirstQuestion = element.querySelectorAll(`[name="question1"]`);
+    const elementsOfSecondQuestion = element.querySelectorAll(`[name="question2"]`);
+    const questions = [elementsOfFirstQuestion, elementsOfSecondQuestion];
+    const questionsAnswered = [false, false];
+
+    linkToStartScreen.addEventListener(`click`, () => back);
+
+    const createHandler = (index, question, variant) => () => {
+      if (variant.value === level.images[index].type) {
+        questionsAnswered[index] = true;
+      } else {
+        fail();
+      }
+
+      if (questionsAnswered[0] === true && questionsAnswered[1] === true) {
+        done();
+      }
+    };
+
+    questions.forEach((question, i) => question.forEach((variant) => variant.addEventListener(`click`, createHandler(i, question, variant))));
+  }
+
   return element;
 };
 

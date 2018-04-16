@@ -1,4 +1,6 @@
 import changeView from './modules/utils/change-view';
+import countAnswer from './modules/utils/count-answer';
+import getAnswerRating from './modules/utils/get-answer-rating';
 import renderIntro from './modules/game/intro';
 import renderGreeting from './modules/game/greeting';
 import renderRules from './modules/game/rules';
@@ -39,12 +41,27 @@ const App = {
     this.state = INITIAL_GAME;
     this.games = GAMES;
     this.answers = ANSWERS;
-    this.showLevel();
+    this.currentLevel = INITIAL_GAME.levels - this.state.levels;
+    this.showLevel(this.state, this.games, this.answers, this.handleLevelWin, this.handleLevelFail, this.handleLevelLose, this.backToIntro);
   },
 
-  showLevel() {
-    const currentLevel = INITIAL_GAME.levels - this.state.levels;
-    const element = renderLevel(this.state, this.games[currentLevel], this.answers);
+  handleLevelWin() {
+    this.answers[this.currentLevel] = getAnswerRating(15);
+    this.state = countAnswer(this.state, true, 15);
+    this.showLevel(this.state, this.games, this.answers, this.handleLevelWin, this.handleLevelFail, this.handleLevelLose, this.backToIntro);
+  },
+
+  handleLevelFail() {
+    this.answers[this.currentLevel] = getAnswerRating();
+    this.state = countAnswer(this.state, false, 15);
+  },
+
+  backToIntro() {
+    this.showIntro();
+  },
+
+  showLevel(state, games, answers, done, fail, lose, back) {
+    const element = renderLevel(state, games[this.currentLevel], answers, done, fail, lose, back);
     changeView(element);
   },
 

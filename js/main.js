@@ -43,7 +43,8 @@ const App = {
   },
 
   showLevel() {
-    const element = renderLevel(this.state, this.games[INITIAL_GAME.levels - this.state.levels], this.answers);
+    const currentLevel = INITIAL_GAME.levels - this.state.levels;
+    const element = renderLevel(this.state, this.games[currentLevel], this.answers);
     changeView(element);
   },
 

@@ -46,13 +46,31 @@ const App = {
     this.games = GAMES;
     this.answers = ANSWERS;
     this.currentLevel = INITIAL_GAME.levels - this.state.levels;
-    this.showLevel(this.state, this.games, this.answers, this.handleLevelWin, this.handleLevelFail, this.handleLevelLose, this.backToIntro.bind(this));
+    this.showLevel(
+        this.state,
+        this.games,
+        this.answers,
+        this.handleLevelWin,
+        this.handleLevelFail,
+        this.handleGameLose,
+        this.handleGameWin,
+        this.backToIntro.bind(this)
+    );
   },
 
   handleLevelWin() {
     this.answers[this.currentLevel] = getAnswerRating(15);
     this.state = countAnswer(this.state, true, 15);
-    this.showLevel(this.state, this.games, this.answers, this.handleLevelWin, this.handleLevelFail, this.handleLevelLose, this.backToIntro);
+    this.showLevel(
+        this.state,
+        this.games,
+        this.answers,
+        this.handleLevelWin,
+        this.handleLevelFail,
+        this.handleGameLose,
+        this.handleGameWin,
+        this.backToIntro
+    );
   },
 
   handleLevelFail() {
@@ -60,16 +78,16 @@ const App = {
     this.state = countAnswer(this.state, false, 15);
   },
 
-  showLevel(state, games, answers, done, fail, lose, back) {
-    const element = renderLevel(state, games[this.currentLevel], answers, done, fail, lose, back);
+  showLevel(state, games, answers, done, fail, lose, win, back) {
+    const element = renderLevel(state, games[this.currentLevel], answers, done, fail, lose, win, back);
     changeView(element);
   },
 
-  showWin() {
+  handleGameWin() {
 
   },
 
-  showLose() {
+  handleGameLose() {
 
   }
 };

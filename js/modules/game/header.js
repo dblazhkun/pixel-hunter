@@ -1,8 +1,6 @@
 import {createElement} from '../utils/create-element';
-import changeView from '../utils/change-view';
-import intro from './intro';
 
-export default (gameState, time = null) => {
+export default (gameState, back, time = null) => {
   let template = `<header class="header">
   <div class="header__back">
     <button class="back">
@@ -35,7 +33,7 @@ export default (gameState, time = null) => {
   const header = createElement(template);
   const linkToStartScreen = header.querySelector(`.back`);
 
-  linkToStartScreen.addEventListener(`click`, () => changeView(intro));
+  linkToStartScreen.addEventListener(`click`, () => back());
 
   return header;
 };

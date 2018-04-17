@@ -11,7 +11,7 @@ const renderLevel = (state, level, answers, done, fail, lose, back) => {
   </div>`;
 
   const element = createElement();
-  element.appendChild(renderHeader(state));
+  element.appendChild(renderHeader(state, back));
   element.appendChild(createElement(template));
   element.appendChild(renderStats(answers));
   element.appendChild(renderFooter());

@@ -19,6 +19,10 @@ const App = {
     changeView(element);
   },
 
+  backToIntro() {
+    this.showIntro();
+  },
+
   showGreeting() {
     const element = renderGreeting(() => {
       this.showRules();
@@ -54,10 +58,6 @@ const App = {
   handleLevelFail() {
     this.answers[this.currentLevel] = getAnswerRating();
     this.state = countAnswer(this.state, false, 15);
-  },
-
-  backToIntro() {
-    this.showIntro();
   },
 
   showLevel(state, games, answers, done, fail, lose, back) {

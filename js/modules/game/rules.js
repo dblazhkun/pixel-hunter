@@ -25,13 +25,12 @@ const template = `<div class="rules">
 
 const renderRules = (done, back) => {
   const rules = createElement();
-  rules.appendChild(renderHeader());
+  rules.appendChild(renderHeader(null, back));
   rules.appendChild(createElement(template));
   rules.appendChild(renderFooter());
 
   const rulesInput = rules.querySelector(`.rules__input`);
   const linkToNextScreen = rules.querySelector(`.rules__button`);
-  const linkToStartScreen = rules.querySelector(`.back`);
   let playerName = ``;
 
   rulesInput.addEventListener(`input`, () => {
@@ -43,7 +42,6 @@ const renderRules = (done, back) => {
   });
 
   linkToNextScreen.addEventListener(`click`, () => done(playerName));
-  linkToStartScreen.addEventListener(`click`, () => back());
 
   return rules;
 };

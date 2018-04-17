@@ -4,7 +4,7 @@ import renderFooter from './footer';
 import renderStats from './stats';
 import getGameContent from './game-content';
 
-const renderLevel = (state, level, answers, done, fail, lose, back) => {
+const renderLevel = (state, level, answers, done, fail, lose, win, back) => {
   const template = `<div class="game">
   <p class="game__task">${level.task}</p>
   ${getGameContent(level)}

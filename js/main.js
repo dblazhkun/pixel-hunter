@@ -46,7 +46,7 @@ const App = {
     this.games = GAMES;
     this.answers = ANSWERS;
     this.currentLevel = INITIAL_GAME.levels - this.state.levels;
-    this.showLevel(this.state, this.games, this.answers, this.handleLevelWin, this.handleLevelFail, this.handleLevelLose, this.backToIntro);
+    this.showLevel(this.state, this.games, this.answers, this.handleLevelWin, this.handleLevelFail, this.handleLevelLose, this.backToIntro.bind(this));
   },
 
   handleLevelWin() {

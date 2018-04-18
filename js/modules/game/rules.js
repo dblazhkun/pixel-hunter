@@ -1,9 +1,6 @@
 import {createElement} from '../utils/create-element';
-import changeView from '../utils/change-view';
 import renderHeader from './header';
 import renderFooter from './footer';
-import game from './game';
-import intro from './intro';
 
 const template = `<div class="rules">
 <h1 class="rules__title">Правила</h1>
@@ -31,17 +28,19 @@ const renderRules = (done, back) => {
 
   const rulesInput = rules.querySelector(`.rules__input`);
   const linkToNextScreen = rules.querySelector(`.rules__button`);
-  let playerName = ``;
+  let inputValue = ``;
 
   rulesInput.addEventListener(`input`, () => {
     linkToNextScreen.removeAttribute(`disabled`);
-    playerName = String.raw`${rulesInput.value}`;
+    inputValue = String.raw`${rulesInput.value}`;
     if (rulesInput.value.length < 1) {
       linkToNextScreen.setAttribute(`disabled`, `disabled`);
     }
   });
 
-  linkToNextScreen.addEventListener(`click`, () => done(playerName));
+  linkToNextScreen.addEventListener(`click`, () => {
+    return done(inputValue);
+  });
 
   return rules;
 };

@@ -8,7 +8,7 @@ export const INITIAL_GAME = {
 
 export const ANSWERS = [`unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`];
 
-export const GAMES = [
+export const LEVELS = [
   {
     gameType: 1,
     task: `Угадайте для каждого изображения фото или рисунок?`,
@@ -42,7 +42,7 @@ export const GAMES = [
   },
   {
     gameType: 3,
-    task: `Найдите рисунок среди изображений`,
+    task: `Найдите фото среди изображений`,
     images: [
       {
         src: `http://i.imgur.com/DKR1HtB.jpg`,
@@ -92,7 +92,7 @@ export const GAMES = [
   },
   {
     gameType: 3,
-    task: `Найдите рисунок среди изображений`,
+    task: `Найдите фото среди изображений`,
     images: [
       {
         src: `http://i.imgur.com/DKR1HtB.jpg`,
@@ -142,7 +142,7 @@ export const GAMES = [
   },
   {
     gameType: 3,
-    task: `Найдите рисунок среди изображений`,
+    task: `Найдите фото среди изображений`,
     images: [
       {
         src: `http://i.imgur.com/DKR1HtB.jpg`,

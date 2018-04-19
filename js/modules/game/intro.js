@@ -1,5 +1,4 @@
 import {createElement} from '../utils/create-element';
-import renderFooter from './footer';
 
 const template = String.raw`<div id="main" class="central__content">
 <div id="intro" class="intro">
@@ -9,9 +8,7 @@ const template = String.raw`<div id="main" class="central__content">
 </div>`;
 
 const renderIntro = (done) => {
-  const intro = createElement();
-  intro.appendChild(createElement(template));
-  intro.appendChild(renderFooter());
+  const intro = createElement(template);
 
   intro.querySelector(`.intro__asterisk`).addEventListener(`click`, () => done());
 

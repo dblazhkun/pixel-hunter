@@ -1,11 +1,7 @@
 import {createElement} from '../utils/create-element';
 import renderHeader from './header';
-import renderStats from './stats';
-import renderFooter from './footer';
-
 
 const renderResults = ({back, state, answers}) => {
-  console.log(answers);
   const successAnswers = answers.reduce(function (sum, current) {
     if (current !== `wrong` && current !== `unknown`) {
       return (sum += 1);
@@ -122,7 +118,6 @@ const renderResults = ({back, state, answers}) => {
   const results = createElement();
   results.appendChild(renderHeader(null, back));
   results.appendChild(createElement(template));
-  results.appendChild(renderFooter());
 
   return results;
 };

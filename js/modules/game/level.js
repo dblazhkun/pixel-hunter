@@ -1,6 +1,5 @@
 import {createElement} from '../utils/create-element';
 import renderHeader from './header';
-import renderFooter from './footer';
 import renderStats from './stats';
 import getGameContent from './game-content';
 
@@ -14,7 +13,6 @@ const renderLevel = ({state, level, answers, done, fail, lose, win, back}) => {
   element.appendChild(renderHeader(state, back));
   element.appendChild(createElement(template));
   element.appendChild(renderStats(answers));
-  element.appendChild(renderFooter());
 
   const linkToStartScreen = element.querySelector(`.back`);
   linkToStartScreen.addEventListener(`click`, () => back);

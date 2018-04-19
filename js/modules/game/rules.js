@@ -1,6 +1,5 @@
 import {createElement} from '../utils/create-element';
 import renderHeader from './header';
-import renderFooter from './footer';
 
 const template = `<div class="rules">
 <h1 class="rules__title">Правила</h1>
@@ -24,7 +23,6 @@ const renderRules = (done, back) => {
   const rules = createElement();
   rules.appendChild(renderHeader(null, back));
   rules.appendChild(createElement(template));
-  rules.appendChild(renderFooter());
 
   const rulesInput = rules.querySelector(`.rules__input`);
   const linkToNextScreen = rules.querySelector(`.rules__button`);

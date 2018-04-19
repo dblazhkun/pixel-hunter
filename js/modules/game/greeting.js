@@ -1,6 +1,4 @@
 import {createElement} from '../utils/create-element';
-import renderFooter from './footer';
-
 
 const template = String.raw`<div class="greeting central--blur">
 <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
@@ -17,9 +15,7 @@ const template = String.raw`<div class="greeting central--blur">
 </div>`;
 
 const renderGreeting = (done) => {
-  const greeting = createElement();
-  greeting.appendChild(createElement(template));
-  greeting.appendChild(renderFooter());
+  const greeting = createElement(template);
 
   greeting.querySelector(`.greeting__continue`).addEventListener(`click`, () => done());
 

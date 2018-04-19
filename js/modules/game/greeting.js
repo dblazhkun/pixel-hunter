@@ -19,7 +19,7 @@ const renderGreeting = (done) => {
 
   greeting.querySelector(`.greeting__continue`).addEventListener(`click`, () => done());
 
-  return greeting;
+  return [greeting];
 };
 
 export default renderGreeting;

@@ -14,10 +14,10 @@ const App = {
   },
 
   showIntro() {
-    const element = renderIntro(() => {
+    const elements = renderIntro(() => {
       this.showGreeting();
     });
-    changeView(element);
+    changeView(elements);
   },
 
   backToIntro() {
@@ -25,10 +25,10 @@ const App = {
   },
 
   showGreeting() {
-    const element = renderGreeting(() => {
+    const elements = renderGreeting(() => {
       this.showRules();
     });
-    changeView(element);
+    changeView(elements);
   },
 
   showRules() {
@@ -40,8 +40,8 @@ const App = {
       this.showIntro();
     };
     this.playerName = ``;
-    const element = renderRules(done, back);
-    changeView(element);
+    const elements = renderRules(done, back);
+    changeView(elements);
   },
 
   showLevel({state, levels, answers, done, fail, lose, win, back}) {

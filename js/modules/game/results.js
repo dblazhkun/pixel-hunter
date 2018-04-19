@@ -115,11 +115,10 @@ const renderResults = ({back, state, answers}) => {
   </table>
   </div>`;
 
-  const results = createElement();
-  results.appendChild(renderHeader(null, back));
-  results.appendChild(createElement(template));
+  const header = renderHeader(null, back);
+  const results = createElement(template);
 
-  return results;
+  return [header, results];
 };
 
 export default renderResults;

@@ -20,9 +20,8 @@ const template = `<div class="rules">
 
 
 const renderRules = (done, back) => {
-  const rules = createElement();
-  rules.appendChild(renderHeader(null, back));
-  rules.appendChild(createElement(template));
+  const header = renderHeader(null, back);
+  const rules = createElement(template);
 
   const rulesInput = rules.querySelector(`.rules__input`);
   const linkToNextScreen = rules.querySelector(`.rules__button`);
@@ -40,7 +39,7 @@ const renderRules = (done, back) => {
     return done(inputValue);
   });
 
-  return rules;
+  return [header, rules];
 };
 
 export default renderRules;

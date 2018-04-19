@@ -12,7 +12,7 @@ const renderIntro = (done) => {
 
   intro.querySelector(`.intro__asterisk`).addEventListener(`click`, () => done());
 
-  return intro;
+  return [intro];
 };
 
 export default renderIntro;

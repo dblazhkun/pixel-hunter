@@ -15,14 +15,10 @@ export const LEVELS = [
     images: [
       {
         src: `http://i.imgur.com/1KegWPz.jpg`,
-        width: 1024,
-        height: 682,
         type: `photo`
       },
       {
         src: `https://k42.kn3.net/CF42609C8.jpg`,
-        width: 600,
-        height: 831,
         type: `paint`
       }
     ],

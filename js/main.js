@@ -49,10 +49,6 @@ const App = {
     changeView(element);
   },
 
-  showWin() {
-
-  },
-
   showResults({state, answers, back}) {
     const element = renderResults({state, answers, back});
     changeView(element);
@@ -79,12 +75,6 @@ const App = {
     this.answers[this.currentLevel] = getAnswerRating(15);
     this.state = countAnswer(this.state, true, 15);
     this.currentLevel = INITIAL_GAME.levels - this.state.levels;
-    console.log(this.answers);
-    console.log(this.state);
-    console.log(INITIAL_GAME);
-    console.log(INITIAL_GAME.levels);
-    console.log(this.state.levels);
-    console.log(this.currentLevel);
     this.showLevel({
       state: this.state,
       levels: this.levels,
@@ -101,16 +91,6 @@ const App = {
     this.answers[this.currentLevel] = getAnswerRating();
     this.state = countAnswer(this.state, false, 15);
     this.currentLevel = INITIAL_GAME.levels - this.state.levels;
-    console.log(this.answers);
-    console.log(this.state);
-    console.log(this.currentLevel);
-    // if (this.state.levels === 0) {
-    //   this.showResults({
-    //     state: this.state,
-    //     answers: this.answers,
-    //     back: this.backToIntro.bind(this)
-    //   });
-    // }
     this.showLevel({
       state: this.state,
       levels: this.levels,

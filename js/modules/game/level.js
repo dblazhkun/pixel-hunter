@@ -67,9 +67,9 @@ const renderLevel = ({state, level, answers, done, fail, lose, win, back}) => {
   }
 
   if (level.gameType === 2) {
-    const imageWidthLimit = 705;
-    const imageHeightLimit = 455;
-    const gameImages = currentLevel.querySelectorAll(`.game__option img`);
+    // const imageWidthLimit = 705;
+    // const imageHeightLimit = 455;
+    // const gameImages = currentLevel.querySelectorAll(`.game__option img`);
 
     // [...gameImages].forEach((it) => calculateImgProportions(it, imageWidthLimit, imageHeightLimit));
 
@@ -96,9 +96,9 @@ const renderLevel = ({state, level, answers, done, fail, lose, win, back}) => {
   }
 
   if (level.gameType === 3) {
-    const imageWidthLimit = 304;
-    const imageHeightLimit = 455;
-    const gameImages = currentLevel.querySelectorAll(`.game__option img`);
+    // const imageWidthLimit = 304;
+    // const imageHeightLimit = 455;
+    // const gameImages = currentLevel.querySelectorAll(`.game__option img`);
 
     // [...gameImages].forEach((it) => calculateImgProportions(it, imageWidthLimit, imageHeightLimit));
 

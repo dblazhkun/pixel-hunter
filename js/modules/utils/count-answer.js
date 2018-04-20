@@ -1,4 +1,4 @@
-const countAnswer = (prevState, answerStatus, elapsedTime) => {
+const countAnswer = (prevState, answerStatus, elapsedTime = null) => {
   const newState = prevState;
   if (answerStatus === false) {
     newState.levels -= 1;

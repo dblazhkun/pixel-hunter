@@ -45,8 +45,48 @@ const App = {
   },
 
   showLevel({state, levels, answers, done, fail, lose, win, back}) {
-    const element = renderLevel({state, level: levels[this.currentLevel], answers, done, fail, lose, win, back});
-    changeView(element);
+    const level = levels[this.currentLevel];
+    switch (level.gameType) {
+      case 1:
+        this.renderLevel1();
+        break;
+      case 2:
+        this.renderLevel2();
+        break;
+      case 3:
+        this.renderLevel3();
+        break;
+    }
+  },
+
+  renderLevel1() {
+    const view = new Level1View({level});
+
+    // ['photo', 'photo']
+    // ['painting', 'photo']
+    view.onAnswer = (answer) => {
+      const isCorrect = checkGameType1Answer(level, answer);
+
+      this.countAnswer(isCorrect);
+    };
+
+    view.onBack = () => {
+      this.showIntro();
+    };
+
+    changeView(view.element);
+  },
+
+  countAnswer(isCorrect) {
+    this.state = countAnswer(this.state, isCorrect, 15);
+
+    if (this.state.isGameEnd) {
+      this.showResults(this.state, this.answers);
+    } else {
+      this.currentLevel++;
+
+      this.showLevel();
+    }
   },
 
   showResults({state, answers, back}) {

@@ -1,40 +1,12 @@
-import {createElement} from './create-element';
+import AbstractView from "../utils/abstract-view";
 
-class AbstractView {
-  constructor({level}) {
+export default class Level1View extends AbstractView {
+  constructor({level, onAnswer}) {
+    super();
     this.level = level;
+    this.onAnswer = onAnswer;
   }
 
-  get template() {
-    if (new.target === AbstractView) {
-      throw new Error(`Абстрактный метод родительского класса. Переопределяется и применяется только в наследниках.`);
-    }
-    return ``;
-  }
-
-  render() {
-    return createElement(this.template);
-  }
-
-  bind(elm) {
-    if (new.target === AbstractView) {
-      throw new Error(`Абстрактный метод родительского класса. Переопределяется и применяется только в наследниках.`);
-    }
-    return elm;
-  }
-
-  get element() {
-    if (!this.createdElement) {
-      this.createdElement = this.bind(this.render());
-    }
-    return this.createdElement;
-  }
-}
-
-export class Level1View extends AbstractView {
-  constructor({level}) {
-    super(level);
-  }
   get template() {
     return `<form class="game__content">
     <div class="game__option">
@@ -60,5 +32,22 @@ export class Level1View extends AbstractView {
       </label>
     </div>
   </form>`;
+  }
+
+  bind(element) {
+
+    const elementsOfFirstQuestion = element.querySelectorAll(`[name="question1"]`);
+    const elementsOfSecondQuestion = element.querySelectorAll(`[name="question2"]`);
+    const questions = [elementsOfFirstQuestion, elementsOfSecondQuestion];
+    const answer = [null, null];
+
+    const createHandler = (index, variant) => () => {
+      answer[index] = variant.value;
+      if (answer[0] && answer[1]) {
+        this.onAnswer(answer);
+      }
+    };
+
+    questions.forEach((question, i) => question.forEach((variant) => variant.addEventListener(`click`, createHandler(i, variant))));
   }
 }

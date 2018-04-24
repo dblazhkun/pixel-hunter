@@ -4,10 +4,10 @@ import getAnswerRating from './modules/utils/get-answer-rating';
 import renderIntro from './modules/game/intro';
 import renderGreeting from './modules/game/greeting';
 import renderRules from './modules/game/rules';
-import renderLevel from './modules/game/level';
 import renderResults from './modules/game/results';
 import {INITIAL_GAME, ANSWERS, LEVELS} from './data/data';
-import {Level1View} from './modules/utils/views';
+// import HeaderView from './modules/game/headerView';
+import Level1View from './modules/game/level-1-view';
 
 const App = {
   start() {
@@ -61,21 +61,21 @@ const App = {
   },
 
   renderLevel1({level}) {
-    const view = new Level1View({level});
-
-    // ['photo', 'photo']
-    // ['painting', 'photo']
-    view.onAnswer = (answer) => {
+    const onBack = () => {
+      this.showIntro();
+    };
+    const onAnswer = (answer) => {
       const isCorrect = checkGameType1Answer(level, answer);
 
       this.countAnswer(isCorrect);
     };
+    const headerView = new HeaderView(state, onBack)
+    const levelView = new Level1View({level, onAnswer, onBack});
 
-    view.onBack = () => {
-      this.showIntro();
-    };
+    // ['photo', 'photo']
+    // ['painting', 'photo']
 
-    changeView(view.element);
+    changeView([headerView.element, levelView.element]);
   },
 
   countAnswer(isCorrect) {

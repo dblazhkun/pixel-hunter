@@ -7,6 +7,7 @@ import renderRules from './modules/game/rules';
 import renderLevel from './modules/game/level';
 import renderResults from './modules/game/results';
 import {INITIAL_GAME, ANSWERS, LEVELS} from './data/data';
+import {Level1View} from './modules/utils/views';
 
 const App = {
   start() {
@@ -48,7 +49,7 @@ const App = {
     const level = levels[this.currentLevel];
     switch (level.gameType) {
       case 1:
-        this.renderLevel1();
+        this.renderLevel1({level});
         break;
       case 2:
         this.renderLevel2();
@@ -59,7 +60,7 @@ const App = {
     }
   },
 
-  renderLevel1() {
+  renderLevel1({level}) {
     const view = new Level1View({level});
 
     // ['photo', 'photo']

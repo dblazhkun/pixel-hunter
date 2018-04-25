@@ -8,7 +8,9 @@ export default class Level1View extends AbstractView {
   }
 
   get template() {
-    return `<form class="game__content">
+    return `<div class="game">
+    <p class="game__task">${this.level.task}</p>
+    <form class="game__content">
     <div class="game__option">
       <img src="${this.level.images[0].src}" alt="Option 1" width="468" height="458">
       <label class="game__answer game__answer--photo">
@@ -31,7 +33,8 @@ export default class Level1View extends AbstractView {
         <span>Рисунок</span>
       </label>
     </div>
-  </form>`;
+  </form>
+  </div>`;
   }
 
   bind(element) {

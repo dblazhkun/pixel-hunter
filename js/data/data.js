@@ -22,10 +22,7 @@ export const LEVELS = [
         type: `paint`
       }
     ],
-    answers: {
-      answer1: `photo`,
-      answer2: `paint`
-    }
+    answer: [`photo`, `paint`]
   },
   {
     gameType: 2,
@@ -72,10 +69,7 @@ export const LEVELS = [
         type: `paint`
       }
     ],
-    answers: {
-      answer1: `photo`,
-      answer2: `paint`
-    }
+    answer: [`photo`, `paint`]
   },
   {
     gameType: 2,
@@ -122,10 +116,7 @@ export const LEVELS = [
         type: `paint`
       }
     ],
-    answers: {
-      answer1: `photo`,
-      answer2: `paint`
-    }
+    answer: [`photo`, `paint`]
   },
   {
     gameType: 2,
@@ -172,10 +163,7 @@ export const LEVELS = [
         type: `paint`
       }
     ],
-    answers: {
-      answer1: `photo`,
-      answer2: `paint`
-    }
+    answer: [`photo`, `paint`]
   }
 ];
 

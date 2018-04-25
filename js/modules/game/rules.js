@@ -29,7 +29,7 @@ const renderRules = (done, back) => {
 
   rulesInput.addEventListener(`input`, () => {
     linkToNextScreen.removeAttribute(`disabled`);
-    inputValue = String.raw`${rulesInput.value}`;
+    inputValue = rulesInput.value;
     if (rulesInput.value.length < 1) {
       linkToNextScreen.setAttribute(`disabled`, `disabled`);
     }

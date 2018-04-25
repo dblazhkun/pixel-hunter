@@ -39,7 +39,7 @@ const App = {
 
   showRules() {
     const done = (inputValue) => {
-      this.playerName = String.raw`${inputValue}`;
+      this.playerName = inputValue;
       this.startGame();
     };
     const back = () => {
@@ -50,7 +50,7 @@ const App = {
     changeView(elements);
   },
 
-  showLevel({state, levels, answers, done, fail, lose, win, back}) {
+  showLevel({state, levels, answers}) {
     const level = levels[this.currentLevel];
     switch (level.gameType) {
       case 1:
@@ -74,7 +74,7 @@ const App = {
 
       this.countAnswer(isCorrect);
     };
-    const headerView = new HeaderView({state, onBack});
+    const headerView = new HeaderView({state, onBack, time: 30});
     const levelView = new Level1View({level, onAnswer, onBack});
     const statsView = new StatsView(answers);
 
@@ -90,7 +90,7 @@ const App = {
 
       this.countAnswer(isCorrect);
     };
-    const headerView = new HeaderView({state, onBack});
+    const headerView = new HeaderView({state, onBack, time: 30});
     const levelView = new Level2View({level, onAnswer, onBack});
     const statsView = new StatsView(answers);
 
@@ -106,7 +106,7 @@ const App = {
 
       this.countAnswer(isCorrect);
     };
-    const headerView = new HeaderView({state, onBack});
+    const headerView = new HeaderView({state, onBack, time: 30});
     const levelView = new Level3View({level, onAnswer, onBack});
     const statsView = new StatsView(answers);
 
@@ -135,11 +135,6 @@ const App = {
         state: this.state,
         levels: this.levels,
         answers: this.answers,
-        done: this.handleLevelWin.bind(this),
-        fail: this.handleLevelFail.bind(this),
-        lose: this.handleGameLose.bind(this),
-        win: this.handleGameWin.bind(this),
-        back: this.backToIntro.bind(this)
       });
     }
   },
@@ -158,11 +153,6 @@ const App = {
       state: this.state,
       levels: this.levels,
       answers: this.answers,
-      done: this.handleLevelWin.bind(this),
-      fail: this.handleLevelFail.bind(this),
-      lose: this.handleGameLose.bind(this),
-      win: this.handleGameWin.bind(this),
-      back: this.backToIntro.bind(this)
     });
   },
 
@@ -174,11 +164,6 @@ const App = {
       state: this.state,
       levels: this.levels,
       answers: this.answers,
-      done: this.handleLevelWin.bind(this),
-      fail: this.handleLevelFail.bind(this),
-      lose: this.handleGameLose.bind(this),
-      win: this.handleGameWin.bind(this),
-      back: this.backToIntro.bind(this)
     });
   },
 
@@ -190,11 +175,6 @@ const App = {
       state: this.state,
       levels: this.levels,
       answers: this.answers,
-      done: this.handleLevelWin.bind(this),
-      fail: this.handleLevelFail.bind(this),
-      lose: this.handleGameLose.bind(this),
-      win: this.handleGameWin.bind(this),
-      back: this.backToIntro.bind(this)
     });
   },
 

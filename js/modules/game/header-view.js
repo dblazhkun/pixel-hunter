@@ -17,7 +17,6 @@ export default class Header1View extends AbstractView {
       </button>
     </div>
     </header>`;
-    console.log(this.state);
     if (this.state) {
       const drawHeart = (full) => {
         return `<img src="img/heart__${full ? `full` : `empty`}.svg" class="game__heart" alt="Life" width="32" height="32">`;

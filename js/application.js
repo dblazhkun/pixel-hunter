@@ -4,7 +4,7 @@ import GreetingView from './modules/game/greeting-view';
 import RulesView from './modules/game/rules-view';
 import HeaderView from './modules/game/header-view';
 import GameModel from './data/game-model';
-// import GamePresenter from './modules/game/game-presrenter';
+import GamePresenter from './modules/game/game-presenter';
 
 
 export default class Application {

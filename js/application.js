@@ -1,13 +1,10 @@
-// import WelcomeScreen from './welcome/welcome-screen';
-// import GameScreen from './game/game-screen';
-// import QuestModel from './data/quest-model';
-// import StatsScreen from './stats/stats-screen';
-
 import changeView from './modules/utils/change-view';
 import IntroView from './modules/game/intro-view';
 import GreetingView from './modules/game/greeting-view';
 import RulesView from './modules/game/rules-view';
 import HeaderView from './modules/game/header-view';
+import GameModel from './data/game-model';
+// import GamePresenter from './modules/game/game-presrenter';
 
 
 export default class Application {
@@ -35,7 +32,7 @@ export default class Application {
       this.showIntro();
     };
     const startGame = (playerName) => {
-      console.log(`WWWAAAAAT!!`);
+      this.showGame(playerName);
     };
 
     const header = new HeaderView({onBack});
@@ -45,7 +42,7 @@ export default class Application {
   }
 
   static showGame(playerName) {
-    const gameScreen = new GameScreen(new QuestModel(playerName));
+    const gameScreen = new GamePresenter(new GameModel(playerName));
     changeView(gameScreen.element);
     gameScreen.startGame();
   }

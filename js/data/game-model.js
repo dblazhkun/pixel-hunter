@@ -1,4 +1,4 @@
-import {INITIAL_GAME, INITIAL_TIME, INITIAL_ANSWERS, LEVELS, changeLevel, die, tick} from './data';
+import {INITIAL_GAME, INITIAL_TIME, INITIAL_ANSWERS, LEVELS} from './data';
 import getAnswerRating from '../modules/utils/get-answer-rating';
 import countAnswer from '../modules/utils/count-answer';
 

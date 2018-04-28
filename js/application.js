@@ -47,9 +47,9 @@ export default class Application {
     gameScreen.startGame();
   }
 
-  // static showStats(model) {
-  //   const statistics = new StatsScreen(model);
-  //   changeView(statistics.element);
-  // }
+  static showStats(model) {
+    const statistics = new StatsView(model);
+    changeView(statistics.element);
+  }
 
 }

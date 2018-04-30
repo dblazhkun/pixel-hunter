@@ -40,7 +40,6 @@ export default class GamePresenter {
   start() {
     this.restart();
     changeView([this.root]);
-    // debugger
     this.startTimer();
   }
 
@@ -77,6 +76,7 @@ export default class GamePresenter {
     this.stats = new StatsView(this.answers);
 
     this.root = document.createElement(`div`);
+    this.root.classList.add(`central__inner`);
     this.root.appendChild(this.header.element);
     this.root.appendChild(this.content.element);
     this.root.appendChild(this.stats.element);

@@ -52,12 +52,12 @@ const App = {
     const game = new GamePresenter({
       playerName,
       onBack: this.onBack.bind(this),
-      showResults: this.showResults
+      showResults: this.showResults.bind(this)
     });
     game.start();
   },
 
-  showResults(state, answers) {
+  showResults({state, answers}) {
     const header = new HeaderView({onBack: this.onBack.bind(this)});
     const results = new ResultsView({state, answers});
 

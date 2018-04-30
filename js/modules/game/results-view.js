@@ -21,7 +21,7 @@ export default class ResultsView extends AbstractView {
       return sum;
     }, 0);
     const slowAnswers = this.answers.reduce((sum, current) => {
-      if (current === `fast`) {
+      if (current === `slow`) {
         return (sum += 1);
       }
       return sum;

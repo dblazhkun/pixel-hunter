@@ -11,10 +11,10 @@ import onLoadError from './modules/utils/on-load-error';
 const App = {
   start() {
     this.showIntro();
-    const logdata = (data) => {console.log(data)};
-    Loader.loadData().
-        then(logdata).
-        catch(onLoadError);
+    // const logdata = (data) => {console.log(data)};
+    // Loader.loadData().
+    //     then(logdata).
+    //     catch(onLoadError);
   },
 
   showIntro() {
@@ -65,6 +65,7 @@ const App = {
 
       game.start();
     };
+
     Loader.loadData().
         then(startGame).
         catch(onLoadError);

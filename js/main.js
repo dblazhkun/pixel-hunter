@@ -45,7 +45,7 @@ const App = {
 
   showRules() {
     const onStartGame = (playerName) => {
-      this.showGame(playerName);
+      this.getDataAndShowGame(playerName);
     };
 
     const header = new HeaderView({onBack: this.onBack.bind(this)});
@@ -54,21 +54,23 @@ const App = {
     changeView([header.element, rules.element]);
   },
 
-  showGame(playerName) {
-    const startGame = (data) => {
-      const game = new GamePresenter({
-        playerName,
-        levels: data,
-        onBack: this.onBack.bind(this),
-        showResults: this.showResults.bind(this)
-      });
-
-      game.start();
-    };
-
+  getDataAndShowGame(playerName) {
     Loader.loadData().
-        then(startGame).
+        then((data) => {
+          App.showGame(playerName, data);
+        }).
         catch(onLoadError);
+  },
+
+  showGame(playerName, data) {
+    const game = new GamePresenter({
+      playerName,
+      levels: data,
+      onBack: this.onBack.bind(this),
+      showResults: this.showResults.bind(this)
+    });
+
+    game.start();
   },
 
   showResults({state, answers}) {

@@ -5,14 +5,16 @@ import RulesView from './modules/game/rules-view';
 import HeaderView from './modules/game/header-view';
 import ResultsView from './modules/game/results-view';
 import GamePresenter from './modules/game/game-presenter';
+import Loader from './modules/utils/loader';
+import onLoadError from './modules/utils/on-load-error';
 
 const App = {
   start() {
-    // Loader.loadData().
-    //     then(Application.showWelcome).
-    //     catch(Application.showError).
-    //     then(() => splash.stop());
     this.showIntro();
+    const logdata = (data) => {console.log(data)};
+    Loader.loadData().
+        then(logdata).
+        catch(onLoadError);
   },
 
   showIntro() {
@@ -53,12 +55,19 @@ const App = {
   },
 
   showGame(playerName) {
-    const game = new GamePresenter({
-      playerName,
-      onBack: this.onBack.bind(this),
-      showResults: this.showResults.bind(this)
-    });
-    game.start();
+    const startGame = (data) => {
+      const game = new GamePresenter({
+        playerName,
+        levels: data,
+        onBack: this.onBack.bind(this),
+        showResults: this.showResults.bind(this)
+      });
+
+      game.start();
+    };
+    Loader.loadData().
+        then(startGame).
+        catch(onLoadError);
   },
 
   showResults({state, answers}) {

@@ -1,7 +1,7 @@
 import changeView from '../utils/change-view';
 import countAnswer from '../utils/count-answer';
 import getAnswerRating from '../utils/get-answer-rating';
-import {INITIAL_GAME, INITIAL_ANSWERS, LEVELS, INITIAL_TIME} from '../../data/data';
+import {INITIAL_GAME, INITIAL_ANSWERS, INITIAL_TIME} from '../../data/data';
 import HeaderView from './header-view';
 import Level1View from './level-1-view';
 import Level2View from './level-2-view';
@@ -10,8 +10,9 @@ import StatsView from './stats-view';
 import checkGameAnswer from '../utils/check-game-answer';
 
 export default class GamePresenter {
-  constructor({playerName, onBack, showResults}) {
+  constructor({playerName, levels, onBack, showResults}) {
     this.playerName = playerName;
+    this.levels = levels;
     this.onBack = onBack;
     this.showResults = showResults;
   }
@@ -62,7 +63,7 @@ export default class GamePresenter {
 
   restart() {
     this.state = JSON.parse(JSON.stringify(INITIAL_GAME));
-    this.levels = JSON.parse(JSON.stringify(LEVELS));
+    // this.levels = JSON.parse(JSON.stringify(LEVELS));
     this.answers = INITIAL_ANSWERS.slice(0);
     this.time = INITIAL_TIME;
     this.currentLevel = INITIAL_GAME.levels - this.state.levels;

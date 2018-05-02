@@ -10,6 +10,7 @@ const parseServerLevelAnswer = (levelAnswer) => {
 const findAnswerOfLevelType3 = (level) => {
   let photos = 0;
   let paints = 0;
+
   level.images.forEach((image) => {
     switch (image.type) {
       case `photo`:
@@ -65,7 +66,7 @@ export const adaptServerData = (data) => data.map((level) => {
   }
 
   if (adaptedLevel.gameType === 3) {
-    adaptedLevel.answer = findAnswerOfLevelType3(level);
+    adaptedLevel.answer = findAnswerOfLevelType3(adaptedLevel);
   }
 
   return adaptedLevel;

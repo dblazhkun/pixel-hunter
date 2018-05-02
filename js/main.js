@@ -8,6 +8,10 @@ import GamePresenter from './modules/game/game-presenter';
 
 const App = {
   start() {
+    // Loader.loadData().
+    //     then(Application.showWelcome).
+    //     catch(Application.showError).
+    //     then(() => splash.stop());
     this.showIntro();
   },
 

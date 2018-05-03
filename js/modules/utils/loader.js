@@ -2,7 +2,6 @@ import {adaptServerData} from './data-adapter';
 
 const SERVER_URL = `https://es.dump.academy/pixel-hunter`;
 
-// const DEFAULT_NAME = `o0`;
 // const APP_ID = 19870714;
 
 const checkStatus = (response) => {

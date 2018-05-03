@@ -38,6 +38,9 @@ export default class IntroView extends AbstractView {
       }
     });
 
-    linkToNextScreen.addEventListener(`click`, () => this.startGame(inputValue));
+    linkToNextScreen.addEventListener(`click`, (evt) => {
+      evt.preventDefault();
+      this.startGame(inputValue);
+    });
   }
 }

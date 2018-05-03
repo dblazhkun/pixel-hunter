@@ -30,6 +30,7 @@ export default class GamePresenter {
     this._interval = setInterval(() => {
       this.tick();
       this.updateHeader();
+      console.log(this.time);
     }, 1000);
   }
 

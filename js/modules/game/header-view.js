@@ -28,7 +28,7 @@ export default class Header1View extends AbstractView {
           <img src="img/logo_small.svg" width="101" height="44">
         </button>
       </div>
-      <h1 class="game__timer">${this.time}</h1>
+      <h1 class="game__timer ${this.time <= 5 ? `game__timer--blink` : ``}">${this.time}</h1>
       <div class="game__lives">
         ${drawHeart(this.state.lives > 2)}
         ${drawHeart(this.state.lives > 1)}
@@ -43,6 +43,13 @@ export default class Header1View extends AbstractView {
   bind(element) {
     const linkToStartScreen = element.querySelector(`.back`);
 
-    linkToStartScreen.addEventListener(`click`, () => this.onBack());
+    linkToStartScreen.addEventListener(`click`, () => {
+      this.onBack();
+      // if (!this.state) {
+      //   this.onBack();
+      // } else if (confirm(`Ваш прогресс будет утерян. Продолжить?`)) {
+      //   this.onBack();
+      // }
+    });
   }
 }

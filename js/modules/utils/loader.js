@@ -2,7 +2,7 @@ import {adaptServerData} from './data-adapter';
 
 const SERVER_URL = `https://es.dump.academy/pixel-hunter`;
 
-// const APP_ID = 19870714;
+const APP_ID = 183012;
 
 const checkStatus = (response) => {
   if (response.ok) {
@@ -19,18 +19,18 @@ export default class Loader {
     return fetch(`${SERVER_URL}/questions`).then(checkStatus).then(toJSON).then(adaptServerData);
   }
 
-  // static loadResults(name = DEFAULT_NAME) {
-  //   return fetch(`${SERVER_URL}/stats/${APP_ID}-${name}`).then(checkStatus).then(toJSON);
-  // }
+  static loadResults(name) {
+    return fetch(`${SERVER_URL}/stats/${APP_ID}-${name}`).then(checkStatus).then(toJSON);
+  }
 
-  // static saveResults(data, name = DEFAULT_NAME) {
-  //   const requestSettings = {
-  //     body: JSON.stringify(data),
-  //     headers: {
-  //       'Content-Type': `application/json`
-  //     },
-  //     method: `POST`
-  //   };
-  //   return fetch(`${SERVER_URL}/stats/${APP_ID}-${name}`, requestSettings).then(checkStatus);
-  // }
+  static saveResults(data, name) {
+    const requestSettings = {
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': `application/json`
+      },
+      method: `POST`
+    };
+    return fetch(`${SERVER_URL}/stats/${APP_ID}-${name}`, requestSettings).then(checkStatus);
+  }
 }

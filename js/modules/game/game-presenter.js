@@ -9,7 +9,6 @@ import Level3View from './level-3-view';
 import StatsView from './stats-view';
 import checkGameAnswer from '../utils/check-game-answer';
 
-// Function to resize given pictures
 const resizeImages = (blockSize, imageSize) => {
   const ratioArr = [blockSize.width / imageSize.width, blockSize.height / imageSize.height];
   const ratio = Math.min(ratioArr[0], ratioArr[1]);

@@ -40,7 +40,7 @@ const App = {
   },
 
   onBack() {
-    this.showIntro();
+    App.showIntro();
   },
 
   showRules() {
@@ -67,15 +67,30 @@ const App = {
       playerName,
       levels: data,
       onBack: this.onBack.bind(this),
-      showResults: this.showResults.bind(this)
+      showResults: this.synchResultsWithServer.bind(this)
     });
 
     game.start();
   },
 
-  showResults({state, answers}) {
-    const header = new HeaderView({onBack: this.onBack.bind(this)});
-    const results = new ResultsView({state, answers});
+  synchResultsWithServer({state, answers, playerName}) {
+    const data = {
+      state,
+      answers
+    };
+
+    Loader.saveResults(data, playerName).
+        then(() => Loader.loadResults(playerName)).
+        then((serverData) => {
+          // console.log(serverData);
+          App.showResults(serverData, App.onBack);
+        }).
+        catch(onLoadError);
+  },
+
+  showResults(data, onBack) {
+    const header = new HeaderView({onBack});
+    const results = new ResultsView(data);
 
     changeView([header.element, results.element]);
   }

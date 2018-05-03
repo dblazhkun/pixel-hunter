@@ -169,6 +169,7 @@ export default class GamePresenter {
       this.showResults({
         state: this.state,
         answers: this.answers,
+        playerName: this.playerName
       });
     } else {
       this.currentLevel++;

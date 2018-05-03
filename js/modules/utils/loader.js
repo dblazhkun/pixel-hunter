@@ -31,6 +31,7 @@ export default class Loader {
       },
       method: `POST`
     };
+    // console.log(data)
     return fetch(`${SERVER_URL}/stats/${APP_ID}-${name}`, requestSettings).then(checkStatus);
   }
 }

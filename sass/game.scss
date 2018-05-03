@@ -17,6 +17,16 @@
   transform: translateX(-50%);
 }
 
+@keyframes blink {
+  0% { color: rgb(223, 78, 78); }
+  50% { color: rgb(0, 0, 0); }
+  100% { color: rgb(223, 78, 78); }
+}
+
+.game__timer--blink {
+  animation: blink 1s linear infinite;
+}
+
 .game__lives {
   position: absolute;
   top: 20px;

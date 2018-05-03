@@ -9,6 +9,14 @@ import Level3View from './level-3-view';
 import StatsView from './stats-view';
 import checkGameAnswer from '../utils/check-game-answer';
 
+// Function to resize given pictures
+const resizeImages = (blockSize, imageSize) => {
+  const ratioArr = [blockSize.width / imageSize.width, blockSize.height / imageSize.height];
+  const ratio = Math.min(ratioArr[0], ratioArr[1]);
+
+  return {width: imageSize.width * ratio, height: imageSize.height * ratio};
+};
+
 export default class GamePresenter {
   constructor({playerName, levels, onBack, showResults}) {
     this.playerName = playerName;
@@ -63,7 +71,6 @@ export default class GamePresenter {
 
   restart() {
     this.state = JSON.parse(JSON.stringify(INITIAL_GAME));
-    // this.levels = JSON.parse(JSON.stringify(LEVELS));
     this.answers = INITIAL_ANSWERS.slice(0);
     this.time = INITIAL_TIME;
     this.currentLevel = INITIAL_GAME.levels - this.state.levels;
@@ -74,15 +81,38 @@ export default class GamePresenter {
       time: this.time
     });
     this.content = this.createLevel();
+    this.optimizeImgSize();
     this.stats = new StatsView(this.answers);
 
     this.root = document.createElement(`div`);
     this.root.classList.add(`central__inner`);
     this.root.appendChild(this.header.element);
-    this.root.appendChild(this.content.element);
+    this.root.appendChild(this.content);
     this.root.appendChild(this.stats.element);
 
     this._interval = null;
+  }
+
+  optimizeImgSize() {
+    const imgs = this.content.querySelectorAll(`img`);
+    const level = this.levels[this.currentLevel];
+    let blockWidth;
+    let blockHeight;
+    if (level.images) {
+      blockWidth = level.images[0].width;
+      blockHeight = level.images[0].height;
+    } else {
+      blockWidth = level.image.width;
+      blockHeight = level.image.height;
+    }
+    imgs.forEach((item) => item.addEventListener(`load`, () => {
+      const blockData = {width: blockWidth, height: blockHeight};
+
+      const imgSizes = {width: item.naturalWidth, height: item.naturalHeight};
+      let data = resizeImages(blockData, imgSizes);
+      item.setAttribute(`height`, data.height);
+      item.setAttribute(`width`, data.width);
+    }));
   }
 
   createLevel() {
@@ -106,6 +136,8 @@ export default class GamePresenter {
         break;
     }
 
+    levelContent = levelContent.element;
+
     return levelContent;
   }
 
@@ -114,8 +146,9 @@ export default class GamePresenter {
     this.updateHeader();
     this.startTimer();
     const level = this.createLevel();
-    this.root.replaceChild(level.element, this.content.element);
+    this.root.replaceChild(level, this.content);
     this.content = level;
+    this.optimizeImgSize();
   }
 
   countAnswer(isCorrect) {

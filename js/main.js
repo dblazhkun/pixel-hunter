@@ -51,11 +51,16 @@ const App = {
   },
 
   getDataAndShowGame(playerName) {
-    Loader.loadData().
-        then((data) => {
-          App.showGame(playerName, data);
-        }).
-        catch(onLoadError);
+    if (this.cachedData) {
+      this.showGame(playerName, this.cachedData);
+    } else {
+      Loader.loadData().
+          then((data) => {
+            App.cachedData = data;
+            App.showGame(playerName, data);
+          }).
+          catch(onLoadError);
+    }
   },
 
   showGame(playerName, data) {
@@ -74,6 +79,10 @@ const App = {
       state,
       answers
     };
+
+    if (this.cachedData) {
+      this.cachedData = null;
+    }
 
     Loader.saveResults(data, playerName).
         then(() => Loader.loadResults(playerName)).

@@ -7,6 +7,7 @@ import ResultsView from './modules/game/results-view';
 import GamePresenter from './modules/game/game-presenter';
 import Loader from './modules/utils/loader';
 import onLoadError from './modules/utils/on-load-error';
+import dataImagesPreloader from './modules/utils/data-images-preloader';
 
 const App = {
   start() {
@@ -17,6 +18,7 @@ const App = {
     Loader.loadData().
         then((data) => {
           App.cachedData = data;
+          dataImagesPreloader(data);
         }).
         catch(onLoadError);
 

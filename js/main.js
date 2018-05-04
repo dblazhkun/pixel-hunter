@@ -14,16 +14,18 @@ const App = {
   },
 
   showIntro() {
+    Loader.loadData().
+        then((data) => {
+          App.cachedData = data;
+        }).
+        catch(onLoadError);
+
     const onAction = () => {
       this.showGreeting();
     };
 
     const intro = new IntroView(onAction);
     changeView([intro.element]);
-  },
-
-  backToIntro() {
-    this.showIntro();
   },
 
   showGreeting() {
@@ -36,31 +38,18 @@ const App = {
   },
 
   onBack() {
-    App.showIntro();
+    App.showGreeting();
   },
 
   showRules() {
     const onStartGame = (playerName) => {
-      this.getDataAndShowGame(playerName);
+      this.showGame(playerName, this.cachedData);
     };
 
     const header = new HeaderView({onBack: this.onBack.bind(this)});
     const rules = new RulesView(onStartGame);
 
     changeView([header.element, rules.element]);
-  },
-
-  getDataAndShowGame(playerName) {
-    if (this.cachedData) {
-      this.showGame(playerName, this.cachedData);
-    } else {
-      Loader.loadData().
-          then((data) => {
-            App.cachedData = data;
-            App.showGame(playerName, data);
-          }).
-          catch(onLoadError);
-    }
   },
 
   showGame(playerName, data) {
@@ -79,10 +68,6 @@ const App = {
       state,
       answers
     };
-
-    if (this.cachedData) {
-      this.cachedData = null;
-    }
 
     Loader.saveResults(data, playerName).
         then(() => Loader.loadResults(playerName)).

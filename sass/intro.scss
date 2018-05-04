@@ -9,6 +9,11 @@
   position: relative;
 }
 
+.intro--animate {
+  opacity: 0;
+  transition: all 500ms ease-in-out;
+}
+
 .intro__asterisk {
   text-align: center;
 

@@ -7,7 +7,7 @@ import ResultsView from './modules/game/results-view';
 import GamePresenter from './modules/game/game-presenter';
 import Loader from './modules/utils/loader';
 import onLoadError from './modules/utils/on-load-error';
-import dataImagesPreloader from './modules/utils/data-images-preloader';
+import preloadDataImages from './modules/utils/preload-data-images';
 
 const App = {
   start() {
@@ -15,19 +15,23 @@ const App = {
   },
 
   showIntro() {
+    const intro = new IntroView();
+    changeView([intro.element]);
+
+    this.introNode = intro;
+
     Loader.loadData().
         then((data) => {
           App.cachedData = data;
-          dataImagesPreloader(data);
+          preloadDataImages(data);
+        }).
+        then(() => {
+          App.introNode.animate();
+          setTimeout(() => {
+            App.showGreeting();
+          }, 350);
         }).
         catch(onLoadError);
-
-    const onAction = () => {
-      this.showGreeting();
-    };
-
-    const intro = new IntroView(onAction);
-    changeView([intro.element]);
   },
 
   showGreeting() {
@@ -37,6 +41,11 @@ const App = {
 
     const greeting = new GreetingView(onAction);
     changeView([greeting.element]);
+
+    setTimeout(() => {
+      greeting.animate();
+    }, 10);
+
   },
 
   onBack() {

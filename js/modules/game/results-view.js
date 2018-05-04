@@ -67,7 +67,7 @@ export default class ResultsView extends AbstractView {
     }).join(``);
 
     return `<div class="result">
-    <h1>${(this.data[0].state.isGameWin) ? `Победа!` : `Вы проиграли`}</h1>
+    <h1>${(this.data[0].state.isGameWin) ? `Победа!` : `Вы проиграли!`}</h1>
       ${resultsList}
     </div>`;
   }

@@ -1,6 +1,6 @@
 import AbstractView from "../utils/abstract-view";
 
-export default class Level1View extends AbstractView {
+export default class LevelTwoOfTwoView extends AbstractView {
   constructor({level, onAnswer}) {
     super();
     this.level = level;

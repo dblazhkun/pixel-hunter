@@ -31,44 +31,32 @@ const findAnswerOfLevelType3 = (level) => {
 
 export const adaptServerData = (data) => data.map((level) => {
   const adaptedLevel = {
-    task: level[`question`]
+    task: level[`question`],
+    gameType: level[`type`]
   };
 
-  switch (level[`type`]) {
-    case `two-of-two`:
-      adaptedLevel.gameType = 1;
-      break;
-    case `tinder-like`:
-      adaptedLevel.gameType = 2;
-      break;
-    case `one-of-three`:
-      adaptedLevel.gameType = 3;
-      break;
-  }
-
-  if (adaptedLevel.gameType === 1 || adaptedLevel.gameType === 3) {
+  if (adaptedLevel.gameType === `two-of-two` || adaptedLevel.gameType === `one-of-three`) {
     adaptedLevel.images = [];
     level[`answers`].forEach((answer) => {
       adaptedLevel.images.push(parseServerLevelAnswer(answer));
     });
   }
 
-  if (adaptedLevel.gameType === 1) {
+  if (adaptedLevel.gameType === `two-of-two`) {
     adaptedLevel.answer = [];
     adaptedLevel.images.forEach((it) => {
       adaptedLevel.answer.push(it.type);
     });
   }
 
-  if (adaptedLevel.gameType === 2) {
+  if (adaptedLevel.gameType === `tinder-like`) {
     adaptedLevel.image = parseServerLevelAnswer(level[`answers`][0]);
     adaptedLevel.answer = adaptedLevel.image.type;
   }
 
-  if (adaptedLevel.gameType === 3) {
+  if (adaptedLevel.gameType === `one-of-three`) {
     adaptedLevel.answer = findAnswerOfLevelType3(adaptedLevel);
   }
-
   return adaptedLevel;
 });
 

@@ -29,7 +29,7 @@ const findAnswerOfLevelType3 = (level) => {
   return `photo`;
 };
 
-export const adaptServerData = (data) => data.map((level) => {
+export default (data) => data.map((level) => {
   const adaptedLevel = {
     task: level[`question`],
     gameType: level[`type`]

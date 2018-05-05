@@ -9,6 +9,9 @@ import Loader from './modules/utils/loader';
 import onLoadError from './modules/utils/on-load-error';
 import preloadDataImages from './modules/utils/preload-data-images';
 
+const INTRO_ANIMATION_TIMEOUT = 350;
+const GREETING_ANIMATION_TIMEOUT = 10;
+
 const App = {
   start() {
     this.showIntro();
@@ -29,7 +32,7 @@ const App = {
           App.introNode.animate();
           setTimeout(() => {
             App.showGreeting();
-          }, 350);
+          }, INTRO_ANIMATION_TIMEOUT);
         }).
         catch(onLoadError);
   },
@@ -44,7 +47,7 @@ const App = {
 
     setTimeout(() => {
       greeting.animate();
-    }, 10);
+    }, GREETING_ANIMATION_TIMEOUT);
 
   },
 

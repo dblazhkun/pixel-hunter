@@ -16,4 +16,16 @@ export const AnswerRating = {
   UNKNOWN: `unknown`,
 };
 
-export const INITIAL_ANSWERS = [`unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`];
+export const INITIAL_ANSWERS = [
+  AnswerRating.UNKNOWN,
+  AnswerRating.UNKNOWN,
+  AnswerRating.UNKNOWN,
+  AnswerRating.UNKNOWN,
+  AnswerRating.UNKNOWN,
+  AnswerRating.UNKNOWN,
+  AnswerRating.UNKNOWN,
+  AnswerRating.UNKNOWN,
+  AnswerRating.UNKNOWN,
+  AnswerRating.UNKNOWN
+];
+

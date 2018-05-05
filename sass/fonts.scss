@@ -1,6 +1,6 @@
 @mixin small-text() {
   font:  {
-    family: 'Roboto', sans-serif;
+    family: 'Roboto', 'Arial', sans-serif;
     size: 12px;
     weight: normal;
   };
@@ -9,7 +9,7 @@
 
 @mixin regular-text() {
   font:  {
-    family: 'Roboto', sans-serif;
+    family: 'Roboto', 'Arial', sans-serif;
     size: 22px;
     weight: 500;
   };
@@ -18,7 +18,7 @@
 
 @mixin bold-text() {
   font:  {
-    family: 'Roboto', sans-serif;
+    family: 'Roboto', 'Arial', sans-serif;
     size: 30px;
     weight: bold;
   };

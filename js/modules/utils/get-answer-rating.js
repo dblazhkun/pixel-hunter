@@ -1,4 +1,4 @@
-export default (time = `wrong`) => {
+export default (time) => {
   if (time < 10) {
     return `fast`;
   }
@@ -8,5 +8,5 @@ export default (time = `wrong`) => {
   if (time >= 20) {
     return `slow`;
   }
-  return time;
+  return `wrong`;
 };

@@ -10,19 +10,19 @@ export default class ResultsView extends AbstractView {
     const resultsList = this.data.map((item, i) => {
       const successAnswers = item.answers.reduce(function (sum, current) {
         if (current !== `wrong` && current !== `unknown`) {
-          return (sum += 1);
+          return sum + 1;
         }
         return sum;
       }, 0);
       const fastAnswers = item.answers.reduce((sum, current) => {
         if (current === `fast`) {
-          return (sum += 1);
+          return sum + 1;
         }
         return sum;
       }, 0);
       const slowAnswers = item.answers.reduce((sum, current) => {
         if (current === `slow`) {
-          return (sum += 1);
+          return sum + 1;
         }
         return sum;
       }, 0);

@@ -1,12 +1,14 @@
+import {AnswerRating} from '../../data/data';
+
 export default (time) => {
   if (time < 10) {
-    return `fast`;
+    return AnswerRating.FAST;
   }
   if (time >= 10 && time < 20) {
-    return `correct`;
+    return AnswerRating.CORRECT;
   }
   if (time >= 20) {
-    return `slow`;
+    return AnswerRating.SLOW;
   }
-  return `wrong`;
+  return AnswerRating.WRONG;
 };

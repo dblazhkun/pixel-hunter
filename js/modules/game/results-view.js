@@ -1,4 +1,5 @@
 import AbstractView from "../utils/abstract-view";
+import {AnswerRating} from '../../data/data';
 
 export default class ResultsView extends AbstractView {
   constructor(data) {
@@ -9,19 +10,19 @@ export default class ResultsView extends AbstractView {
   get template() {
     const resultsList = this.data.map((item, i) => {
       const successAnswers = item.answers.reduce(function (sum, current) {
-        if (current !== `wrong` && current !== `unknown`) {
+        if (current !== AnswerRating.WRONG && current !== AnswerRating.UNKNOWN) {
           return sum + 1;
         }
         return sum;
       }, 0);
       const fastAnswers = item.answers.reduce((sum, current) => {
-        if (current === `fast`) {
+        if (current === AnswerRating.FAST) {
           return sum + 1;
         }
         return sum;
       }, 0);
       const slowAnswers = item.answers.reduce((sum, current) => {
-        if (current === `slow`) {
+        if (current === AnswerRating.SLOW) {
           return sum + 1;
         }
         return sum;

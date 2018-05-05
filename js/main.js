@@ -7,27 +7,31 @@ import ResultsView from './modules/game/results-view';
 import GamePresenter from './modules/game/game-presenter';
 import Loader from './modules/utils/loader';
 import onLoadError from './modules/utils/on-load-error';
+import preloadDataImages from './modules/utils/preload-data-images';
 
 const App = {
   start() {
     this.showIntro();
-    // const logdata = (data) => {console.log(data)};
-    // Loader.loadData().
-    //     then(logdata).
-    //     catch(onLoadError);
   },
 
   showIntro() {
-    const onAction = () => {
-      this.showGreeting();
-    };
-
-    const intro = new IntroView(onAction);
+    const intro = new IntroView();
     changeView([intro.element]);
-  },
 
-  backToIntro() {
-    this.showIntro();
+    this.introNode = intro;
+
+    Loader.loadData().
+        then((data) => {
+          App.cachedData = data;
+          preloadDataImages(data);
+        }).
+        then(() => {
+          App.introNode.animate();
+          setTimeout(() => {
+            App.showGreeting();
+          }, 350);
+        }).
+        catch(onLoadError);
   },
 
   showGreeting() {
@@ -37,29 +41,26 @@ const App = {
 
     const greeting = new GreetingView(onAction);
     changeView([greeting.element]);
+
+    setTimeout(() => {
+      greeting.animate();
+    }, 10);
+
   },
 
   onBack() {
-    App.showIntro();
+    App.showGreeting();
   },
 
   showRules() {
     const onStartGame = (playerName) => {
-      this.getDataAndShowGame(playerName);
+      this.showGame(playerName, this.cachedData);
     };
 
     const header = new HeaderView({onBack: this.onBack.bind(this)});
     const rules = new RulesView(onStartGame);
 
     changeView([header.element, rules.element]);
-  },
-
-  getDataAndShowGame(playerName) {
-    Loader.loadData().
-        then((data) => {
-          App.showGame(playerName, data);
-        }).
-        catch(onLoadError);
   },
 
   showGame(playerName, data) {
@@ -82,7 +83,6 @@ const App = {
     Loader.saveResults(data, playerName).
         then(() => Loader.loadResults(playerName)).
         then((serverData) => {
-          // console.log(serverData);
           App.showResults(serverData, App.onBack);
         }).
         catch(onLoadError);

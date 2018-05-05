@@ -1,9 +1,8 @@
 import AbstractView from "../utils/abstract-view";
 
 export default class IntroView extends AbstractView {
-  constructor(onAction) {
+  constructor() {
     super();
-    this.onAction = onAction;
   }
 
   get template() {
@@ -15,7 +14,7 @@ export default class IntroView extends AbstractView {
     </div>`;
   }
 
-  bind(element) {
-    element.querySelector(`.intro__asterisk`).addEventListener(`click`, () => this.onAction());
+  animate() {
+    this.element.querySelector(`.intro`).classList.add(`intro--animate`);
   }
 }

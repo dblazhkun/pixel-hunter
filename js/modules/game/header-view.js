@@ -44,12 +44,13 @@ export default class Header1View extends AbstractView {
     const linkToStartScreen = element.querySelector(`.back`);
 
     linkToStartScreen.addEventListener(`click`, () => {
-      this.onBack();
-      // if (!this.state) {
-      //   this.onBack();
-      // } else if (confirm(`Ваш прогресс будет утерян. Продолжить?`)) {
-      //   this.onBack();
-      // }
+      if (!this.state) {
+        this.onBack();
+        /*eslint-disable */
+      } else if (confirm(`Ваш прогресс будет утерян. Продолжить?`)) {
+        /*eslint-enable */
+        this.onBack();
+      }
     });
   }
 }

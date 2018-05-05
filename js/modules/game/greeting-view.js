@@ -25,4 +25,8 @@ export default class IntroView extends AbstractView {
   bind(element) {
     element.querySelector(`.greeting__continue`).addEventListener(`click`, () => this.onAction());
   }
+
+  animate() {
+    this.element.classList.add(`greeting--animate`);
+  }
 }

@@ -3,9 +3,9 @@ import countAnswer from '../utils/count-answer';
 import getAnswerRating from '../utils/get-answer-rating';
 import {INITIAL_GAME, INITIAL_ANSWERS, INITIAL_TIME} from '../../data/data';
 import HeaderView from './header-view';
-import Level1View from './level-1-view';
-import Level2View from './level-2-view';
-import Level3View from './level-3-view';
+import LevelTwoOfTwoView from './level-two-of-two-view';
+import LevelTinderLikeView from './level-tinder-like-view';
+import LevelOneOfThreeView from './level-one-of-three-view';
 import StatsView from './stats-view';
 import checkGameAnswer from '../utils/check-game-answer';
 
@@ -124,14 +124,14 @@ export default class GamePresenter {
     };
     let levelContent;
     switch (level.gameType) {
-      case 1:
-        levelContent = new Level1View({level, onAnswer});
+      case `two-of-two`:
+        levelContent = new LevelTwoOfTwoView({level, onAnswer});
         break;
-      case 2:
-        levelContent = new Level2View({level, onAnswer});
+      case `tinder-like`:
+        levelContent = new LevelTinderLikeView({level, onAnswer});
         break;
-      case 3:
-        levelContent = new Level3View({level, onAnswer});
+      case `one-of-three`:
+        levelContent = new LevelOneOfThreeView({level, onAnswer});
         break;
     }
 

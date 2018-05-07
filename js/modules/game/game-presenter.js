@@ -13,6 +13,14 @@ const resizeImages = (blockSize, imageSize) => {
   const ratioArr = [blockSize.width / imageSize.width, blockSize.height / imageSize.height];
   const ratio = Math.min(ratioArr[0], ratioArr[1]);
 
+  // console.log(blockSize);
+  // console.log(imageSize);
+
+  // console.log(blockSize.width);
+  // console.log(imageSize.width);
+  // console.log((blockSize.width / imageSize.width).toFixed(3));
+  // console.log(ratioArr);
+
   return {width: imageSize.width * ratio, height: imageSize.height * ratio};
 };
 
@@ -80,7 +88,6 @@ export default class GamePresenter {
       time: this.time
     });
     this.content = this.createLevel();
-    this.optimizeImgSize();
     this.stats = new StatsView(this.answers);
 
     this.root = document.createElement(`div`);
@@ -88,22 +95,18 @@ export default class GamePresenter {
     this.root.appendChild(this.header.element);
     this.root.appendChild(this.content);
     this.root.appendChild(this.stats.element);
+    this.optimizeImgSize();
 
     this._interval = null;
   }
 
   optimizeImgSize() {
-    const imgs = this.content.querySelectorAll(`img`);
+    const imgs = [...this.content.querySelectorAll(`img`)];
     const level = this.levels[this.currentLevel];
-    let blockWidth;
-    let blockHeight;
-    if (level.images) {
-      blockWidth = level.images[0].width;
-      blockHeight = level.images[0].height;
-    } else {
-      blockWidth = level.image.width;
-      blockHeight = level.image.height;
-    }
+
+    let blockWidth = level.images ? level.images[0].width : level.image.width;
+    let blockHeight = level.images ? level.images[0].height : level.image.height;
+
     imgs.forEach((item) => item.addEventListener(`load`, () => {
       const blockData = {width: blockWidth, height: blockHeight};
 
@@ -111,6 +114,7 @@ export default class GamePresenter {
       let data = resizeImages(blockData, imgSizes);
       item.setAttribute(`height`, data.height);
       item.setAttribute(`width`, data.width);
+
     }));
   }
 
@@ -122,7 +126,9 @@ export default class GamePresenter {
 
       this.countAnswer(isCorrect);
     };
+
     let levelContent;
+
     switch (level.gameType) {
       case `two-of-two`:
         levelContent = new LevelTwoOfTwoView({level, onAnswer});
@@ -154,11 +160,7 @@ export default class GamePresenter {
     const elapsedTime = INITIAL_TIME - this.time;
     this.state = countAnswer(this.state, isCorrect, elapsedTime);
 
-    if (isCorrect) {
-      this.answers[this.currentLevel] = getAnswerRating(elapsedTime);
-    } else {
-      this.answers[this.currentLevel] = getAnswerRating();
-    }
+    this.answers[this.currentLevel] = isCorrect ? getAnswerRating(elapsedTime) : getAnswerRating();
 
     const stats = new StatsView(this.answers);
     this.root.replaceChild(stats.element, this.stats.element);

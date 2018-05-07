@@ -31,6 +31,6 @@ export default class LevelOneOfThreeView extends AbstractView {
       this.onAnswer(this.level.images[index].type);
     };
 
-    elementsOfQuestion.forEach((variant, i) => variant.addEventListener(`click`, createHandler(i)));
+    elementsOfQuestion.forEach((variant, i) => variant.addEventListener(`mouseup`, createHandler(i)));
   }
 }

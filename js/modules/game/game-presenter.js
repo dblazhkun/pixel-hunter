@@ -9,19 +9,17 @@ import LevelOneOfThreeView from './level-one-of-three-view';
 import StatsView from './stats-view';
 import checkGameAnswer from '../utils/check-game-answer';
 
-const resizeImages = (blockSize, imageSize) => {
+const getResizeValues = (blockSize, imageSize) => {
   const ratioArr = [blockSize.width / imageSize.width, blockSize.height / imageSize.height];
   const ratio = Math.min(ratioArr[0], ratioArr[1]);
 
-  // console.log(blockSize);
-  // console.log(imageSize);
-
-  // console.log(blockSize.width);
-  // console.log(imageSize.width);
-  // console.log((blockSize.width / imageSize.width).toFixed(3));
-  // console.log(ratioArr);
-
   return {width: imageSize.width * ratio, height: imageSize.height * ratio};
+};
+
+const setResizeValues = (img, block, origSizes) => {
+  let data = getResizeValues(block, origSizes);
+  img.setAttribute(`height`, data.height);
+  img.setAttribute(`width`, data.width);
 };
 
 export default class GamePresenter {
@@ -108,20 +106,25 @@ export default class GamePresenter {
     let blockHeight = level.images ? level.images[0].height : level.image.height;
 
     imgs.forEach((item) => item.addEventListener(`load`, () => {
-      setTimeout(() => {
-        const blockData = {width: blockWidth, height: blockHeight};
 
-        const imgSizes = {width: item.naturalWidth, height: item.naturalHeight};
+      const blockData = {width: blockWidth, height: blockHeight};
+      const imgSizes = {width: item.naturalWidth, height: item.naturalHeight};
 
-        let data = resizeImages(blockData, imgSizes);
-        item.setAttribute(`height`, data.height);
-        item.setAttribute(`width`, data.width);
+      if (imgSizes.width || imgSizes.height) {
+        setResizeValues(item, blockData, imgSizes);
+        return;
+      }
 
-      }, 1000);
-
+      // fix bug in Edge, when item.naturalWidth/item.naturalHeight has zero values on load event
+      let interval = setInterval(function () {
+        if (item.naturalWidth > 0 || item.naturalHeight > 0) {
+          imgSizes.width = item.naturalWidth;
+          imgSizes.height = item.naturalHeight;
+          setResizeValues(item, blockData, imgSizes);
+          clearInterval(interval);
+        }
+      }, 10);
     }));
-
-
   }
 
   createLevel() {

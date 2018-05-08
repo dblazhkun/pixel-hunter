@@ -108,14 +108,20 @@ export default class GamePresenter {
     let blockHeight = level.images ? level.images[0].height : level.image.height;
 
     imgs.forEach((item) => item.addEventListener(`load`, () => {
-      const blockData = {width: blockWidth, height: blockHeight};
+      setTimeout(() => {
+        const blockData = {width: blockWidth, height: blockHeight};
 
-      const imgSizes = {width: item.naturalWidth, height: item.naturalHeight};
-      let data = resizeImages(blockData, imgSizes);
-      item.setAttribute(`height`, data.height);
-      item.setAttribute(`width`, data.width);
+        const imgSizes = {width: item.naturalWidth, height: item.naturalHeight};
+
+        let data = resizeImages(blockData, imgSizes);
+        item.setAttribute(`height`, data.height);
+        item.setAttribute(`width`, data.width);
+
+      }, 1000);
 
     }));
+
+
   }
 
   createLevel() {
